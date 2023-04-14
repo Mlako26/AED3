@@ -1,0 +1,55 @@
+13.a.
+Recorriendo de izquierda a derecha, de estar ambos multiconjuntos ordenados, el algoritmo para encontrar la maxima cantidad de parejas es el siguiente:
+
+Sea i un indice al principio del arreglo A, y j del arreglo B. Si |A[i] - B[j]| <= 1, entonces +1 cantidad de parejas y i++ j++. Si no, el menor de A[i] y B[j]++ ese indice.
+
+i = 0;
+j = 0;
+parejas = 0;
+while(i < A.size() && j < B.size()) {
+    if (|A[i] - B[j]| <= 1) {
+        parejas++;
+        i++;
+        j++;
+    } else if (A[i] < B[j]) {
+        i++;
+    } else {
+        j++;
+    }
+}
+
+// TODO DEMOSTRAR
+
+14.
+
+a. La estrategia golosa es ordenar el multiconjunto de menor a mayor, y luego realizar las sumas en orden. Esto tiene en cuenta que, como la suma de los elementos x e y tiene costo x + y, siempre quiero sumar la menor cantidad posible a la vez. Es decir, en cada paso del subproblema, de entre los numeros restantes por sumar busco el mas pequeño.
+
+b. // TODO DEMOSTRAR
+
+c. Claro, el algoritmo termina siendo O(n log n) ya que es el costo de ordenar el arreglo multiconjunto. Por ejemplo, un vector. Luego, el algoritmo suma de izquierda a derecha con complejidad O(n). 
+
+Sea v el vector multiconjunto:
+
+if (v.size() == 0) return 0;
+mergeSort(v); // O(n log n)
+costo = v[0];
+res = 0;
+i = 1;
+while (i < v.size()) {
+    costo += v[i];
+    res += costo;
+}
+return res;
+
+15.
+a. proc subCursos (in E: conj(int), in C: conj(pair(int, int)), out res: pair(conj(int), conj(int))) {
+    PRE = {paratodo pair(int, int) en C, ambos elementos deben de estar en E ^ si (a, b) pertenece a C entonces (b, a) no pertenece a C}
+
+    POST = {res.first U res.second = E ^ (paratodo int x) x pertenece a res.first sii no pertenece a res.second ^ si x pertenece a res.first no existe y en res.first tal que (x,y) pertenece a C y lo mismo con res.second}
+}
+
+b. TODO
+
+c. TODO
+
+16.
