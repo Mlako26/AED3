@@ -50,6 +50,21 @@ a. proc subCursos (in E: conj(int), in C: conj(pair(int, int)), out res: pair(co
 
 b. TODO
 
+Observemos que siempre habra solucion al problema para cualquier instancia. Hagamos induccion en la cantidad de estudiantes.
+
+Caso Base: Hay 1 solo estudiante
+Simplemente divido el grupo de 1 estudiante en otro de 1 estudiante y otro de ninguno, ambos con ninguna pareja de estudiantes cercanos.
+
+Paso Inductivo: supongamos que se puedan dividir en dos un grupo de k estudiantes, cada subgrupo con <= c/2 parejas cercanas, siendo c la cantidad de relaciones totales. Veamos que tambien se puede dividir uno de k+1 estudiantes.
+
+Tenemos que con k estudiantes, de agregar un estudiante k+1, las relaciones totales pasan a ser c' = c + i + j. Contamos cuantas son las relaciones cercanas que tiene con los estudiantes en cada subgrupo. Es decir, llamemos i a la cantidad de relaciones cercanas que tiene el estudiante k+1 con los estudiantes de A, y j con los estudiantes de B. Notemos que como las relaciones se forman de entre dos estudiantes, i y j suman exactamente la cantidad de relaciones totales en las cuales participa el estudiante k+1.
+
+Luego, de ser i menor, lo agrego al grupo A. De ser j menor, a B.
+Por hipotesis inductiva, ambos grupos tenian <= c/2 relaciones. De agregar a i, c/2 + i = (c+2i)/2 <= c + 2i <= c + i + j.
+
+Idem lo otro.
+
+
 c. TODO
 
 16.
