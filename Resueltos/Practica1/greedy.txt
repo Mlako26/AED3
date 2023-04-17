@@ -68,3 +68,8 @@ Idem lo otro.
 c. TODO
 
 16.
+
+a.
+
+fs(S, {w1...wn}) = S si n = 0
+                 = fs(S, {w1...wn-1}) si |fs(S, {w1...wn-1})| > |fs(...|
