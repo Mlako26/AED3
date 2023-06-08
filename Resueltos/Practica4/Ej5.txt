@@ -1,0 +1,17 @@
+Contrario al ejercicio anterior, ahora tenemos que una arista es critica para s y t cuando al quitarla del grafo el peso del camino minimo entre s y t incrementa. En otras palabras, no solo pertenecia a uno de los caminos minimos entre s y t, porque sino no cambiaria el peso del mismo, sino que todos los caminos minimos pasaban por ella.
+
+Un algoritmo para resolver el problema es el siguiente:
+- Calculo Dijkstra desde s. O(mlogn)
+- Invierto las aristas y calculo Dijkstra desde t. O(mlogn)
+- Recorro todas las aristas y las pinto si pertenecen a un camino minimo desde s hacia t. Esto sucede si el peso de la arista + el camino desde s hacia uno de sus vertíces + el camino desde t hacia el otro de sus vertices es = d(s,t). O(m)
+- Me genero un grafo G' con todas las aristas que pertenezcan a un camino minimo entre s y t. O(n + m)
+- Devuelvo las aristas puentes de G'. O(n + m)
+
+Complejidad: O(mlogn)
+
+Basicamente, nos generamos el grafo G' que tiene los mismos vertices que G pero que solo tiene las aristas que pertencen a caminos minimos entre s y t. Luego, originalmente queriamos encontrar las aristas tales que al quitarlas del grafo aumenta la distancia del camino minimo. 
+
+Si observamos G', podemos ver que los vertices que no pertences a caminos minimos estan aislados, y que todos los caminos entre s y t son minimos. Es decir, todas las aristas en G' pertenecen a caminos minimos entre s y t  y no hay aristas que conecten a un vertice que no pertenezca a uno. Luego, cualquier arista que no sea puente en G', al quitarla del grafo no aumentan las componentes conexas, y por ende siguen habiendo caminos minimos del mismo peso entre s y t. 
+Pero si quito una arista puente, aumentan las componentes conexas, y por ende se anulan todos los caminos minimos entre s y t ya que terminarian en componentes conexas diferentes. Demostremos esto:
+
+Quiero ver que quitando una arista puente en G' genera divide el grafo en dos, donde cada componente componexa contiene a s y a t respectivamente. 

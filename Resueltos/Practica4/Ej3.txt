@@ -1,0 +1,26 @@
+Digrafo G
+Vertices s, t
+Res = recorrido minimo entre s y t que pasa por como maximo una arista de peso negativo.
+
+Primero observemos que tenemos el digrafo G con aristas de peso tanto positivo como negativo. Luego, buscamos encontrar el recorrido minimo que solamente puede pasar por una arista negativa.
+
+La solucion que se me ocurrio fue generar una copia del grafo G, sea G', tal que representa el estado del grafo luego de haber pasado por una arista negativa. 
+Es decir, el modelo del problema sera el siguiente:
+para todo vertice v, w perteneciendo a G, y para todo vertice v', w' perteneciendo a G', si v->w esta en G y c(v, w) >= 0, entonces v'->w' esta en G'. Si c(v, w) < 0 entonces v'->w' no esta en G'. Luego, v->w las quitamos de G y generamos las aristas v->w'.
+
+De este modo, realizando un recorrido comenzando en G, cada vez que se toma una arista v->w con peso negativo, se pasa al mismo nodo w' en G', donde se quitaron las aristas de peso negativo. Esto permite que cada recorrido comenzando en G tenga como mucho una arista negativa en el mismo.
+
+Algoritmo:
+- Genero una copia de G, G', donde no tiene las aristas de peso negativo. O(n + m)
+- Toda arista de G con peso negativo v->w, las cambio a v->w'.
+O(m).
+- Realizo Dijkstra desde s en G (y no desde s' en G'). O(mlogn)
+- Tomo el menor de las distancias entre s y t o s y t'. Si tomo t, significa que el mejor recorrido no pasa por ninguna arista negativa, y si tomo t' pasa por exactamente una.
+
+Complejidad: O(mlogn)
+
+Correctitud
+
+Por el invariante de Dijkstra, pueden darse dos casos en el algoritmo:
+- Si no se toma una arista de peso negativo, entonces el algoritmo solo recorre G y devuelve el camino minimo entre s y t. Esta respuesta es optima, ya que el camino minimo entre s y t sin aristas negativas es mejor o igual que cualquier recorrido entre s y t. Esto es porque un recorrido sin aristas minimas puedo tomarlo sin los ciclos y le decremento el peso. Entonces, de no tomar aristas negativas, nuestro algoritmo devuelve el mejor recorrido (camino) entre s y t segun el invariante de Dijkstra.
+- Si se toma un arista de peso negativo, sea v->w', el algoritmo de Dijkstra encuentra el camino minimo entre s y v y luego el camino minimo entre w' y t'. Por lo dicho antes, no hay recorrido entre s y v mejor que el encontrado por Dijkstra e idem para w' y t'. Luego, el recorrido entre s y t' encontrado es el mas corto. Puede generarse un problema con Dijkstra y las aristas negativas, ya que el algoritmo no soporta las mismas.

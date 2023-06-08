@@ -1,0 +1,7 @@
+Tengo un grafo G y un conjunto de aristas no pertenecientes a G. Luego, dados dos vertices en G s y t, quiero saber cuales de las aristas dadas mejoran el camino minimo entre ellos.
+
+Como algoritmo trivial, si tenemos k aristas no pertenecientes a G, podemos correr k+1 veces Dijkstra, donde cada vez se corre agregando una arista diferente al grafo, y se corre otra vez sin agregar ninguna. Si cuando agrego una arista el camino minimo mejora, entonces marco esa arista. Al final, devuelvo todas.
+
+Complejidad O(k(mlogn))
+
+Correctitud: Dijkstra encuentra el mejor camino entre s y t. Luego, si agregamos los vertices uno a la vez (nunca agregamos mas de un vertice a G en simultaneo), si el camino mejora Dijkstra lo va a encontrar.
