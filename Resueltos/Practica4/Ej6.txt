@@ -1,0 +1,14 @@
+Multiplicatoria de los pesos de las aristas es el camino multiplicativo.
+
+Hint: Transformar el peso de cada arista usando una operacion conocida que sea creciente y transforme cualquier multiplicatoria en una sumatoria.
+
+Quiero buscar la cadena de pesos minima p1*p2*...*pn de entre todas las cadenas de pesos. Observar que si a todas las cadenas les aplico logaritmo, luego se da que 
+log(p1*p2*...*pn) = log(p1) + ... + log(pn). Entonces, como log es creciente, si la cadena de los elementos multiplicados era la minima posible, aplicandole logartimo a todas las cadenas y transformando la multiplicatoria en una sumatoria de logaritmos sigue siendo la minima posible. Entonces, queda demostrado que querer encontrar el camino de peso multiplicativo minimo en un digrafo es equivalente a buscar el camino de peso minimo en un grafo donde le aplique logaritmo a todas las aristas.
+
+Entonces, podemos modelar el algoritmo de la siguiente forma:
+
+- Recorro todas las aristas y les aplico logaritmo. O(m)
+- Aplico Dijkstra al nuevo grafo. O(mlogn)
+
+Listo!
+
