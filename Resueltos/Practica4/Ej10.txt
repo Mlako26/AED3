@@ -1,0 +1,54 @@
+n clientes {c1,...,cn}
+M cajas numeradas de izq a der
+si ci y cj se pelean, tienen que ponerse en dos filas distintas separadas por Kij > 0 filas de distancia.
+si ci y cj son amigos, entonces queremos que no haya mas de Lij = Lji >= 0 pasillos entre medio de sus filas.
+
+a. Queremos modelar el sistema de restricciones de diferencias de poder asignarles a todos los clientes una fila y que se respeten las restricciones. Esto a su vez es equivalente a pensar un digrafo que modele la situacion. Luego, el problema tendra solucion si y solo si el sistema es compatible si y solo si el digrafo no tiene ciclos negativos.
+
+Primero, pensemos cuales son las variables del sistema.
+
+Sabemos que S tendra la pinta 
+xi-xj <= cij, para 1 <= i < j <= n.
+
+Llamemos xi a la caja en la cual se encuentra el cliente ci, y luego querriamos que los diferentes cij represente la distancia maxima o minima que deberian de tener las cajas de estas dos personas. Por ejemplo, nos gustaria modelar que si dos personas ci y cj son amigos, sus cajas xi e xj tengan distancia menor o igual a Lij = Lji.
+
+Entonces, para todos los clientes ci, cj que son amigos, se tiene que dar en S que 
+
+xi-xj <= Lij
+xj-xi <= Lji
+
+Tenemos que incluir ambas inecuaciones ya que no sabemos cual de las dos cajas xi o xj es menor, con lo cual xi-xj o xj-xi puede ser negativo y se cumpliria trivialmente (Lij = Lji >= 0).
+
+Por otro lado, para modelar los conflictos entre los clientes ci y cj, se tiene que dar en S que 
+
+xi - xj >= kij 
+xj - xi >= kij 
+
+Es decir, las cajas en las que se encuentran deben de estar separadas por al menos kij unidades. Reordenando,
+
+xi - xj >= kij  <-> xj - xi <= -kij
+xj - xi >= kij  <-> xi - xj <= -kij
+
+Nuevamente, debo de incluir ambas inecuaciones ya que xi-xj o xj-xi puede ser positivo, y en ese caso no podrian ser menores a -kij = -kji (kij > 0).
+
+Los demas clientes que no tienen problemas ni son amigos entre si no hace falta pedir ninguna restriccion.
+
+De este modo, finalizamos de modelar S. Las unicas inecuaciones que imponemos al sistema son las que modelan las peleas y las amistades. Cada una de estas condiciones se representa con dos inecuaciones, de las cuales una siempre es trivialmente cierta.
+
+b.
+Dado n la cantidad de clientes, M la cantidad de cajas, los clientes peleados y los clientes amigos, propongo el siguiente algoritmo:
+
+- Confecciono D(S) el digrafo que representa el sistema de restricciones de diferencias del problema. Esto puede hacerse tomando N nodos, uno por cada cliente, y habra un vertice entre los nodos vi->vj con peso cij tal que vi-vj <= cij sea una inecuacion del sistema.
+
+Entonces, para todo par de amigos ci y cj, se tiene que estan las aristas vi->vj y vj->vi con peso Lij, y tambien estan las aristas vk->vm y vm->vk para los clientes peleados ck y cm con peso -Kmk.
+
+- Agrego el vertice v0 que apunta a todos los otros vertices con peso 0.
+
+- Aplico Bellman-Ford para saber si tiene ciclos negativos, y por ende si el sistema tiene solucion.
+
+
+c. La complejidad del algoritmo es la del modelado y la de BF.
+
+Modelar el digrafo es O(cantidad de nodos + cantidad de aristas). Habran n nodos y 2*(m1 + m2) cantidad de aristas, con lo cual sera O(n + m1 + m2). Bellman-Ford sera tambien entonces O(n(m1+m2)).
+
+Entonces, la complejidad final sera O(n(m1+m2)).

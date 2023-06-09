@@ -1,0 +1,33 @@
+n clientes.
+M cajas dispuestas en circulo.
+Barrera entre la 1 y la M (no se puede pasar de una a la otra).
+Si ci y cj se pelean, tienen que ponerse en filas a Kij > 0 distancia de entre si para ambos lados del circulo.
+
+a. Queremos modelar el problema con un SRL. El problema a modelar es el de la asignacion de clientes a las diferentes filas, donde queremos que todos esten en una de las 1 a M filas, y que si dos clientes i y j se pelearon, sus fiales esten distanciadas por Kij > 0 pasillos de por medio para ambos lados del circulo. Notar de que la barrera entre las cajas 1 y M son las que permiten que esta ultima restriccion no sea trivial.
+
+Entonces, primero agreguemos a nuestro sistema las variables. Estas seran xi representando la caja en la que queda el cliente ci. Agreguemos primero las n ecuaciones
+
+1 <= xi - z <= M, donde z es una variable auxiliar que la haremos valer 0. Estas restricciones nos permiten limitar los valores posibles de xi entre 1 y M.
+
+Por otro lado, queremos representar las posibles peleas. Si dos clientes ci y cj se pelean, uno queda mas a la izquierda y otro mas a la derecha, y la distancia entre ambas cajas debe de ser de al menos Kij > 0 para ambos lados del circulo. Si ci es el de mas a la izquierda, debe darse que:
+
+xj - xi >= Kij
+(xi + M) - xj >= Kij
+
+que es equivalente a 
+
+xi - xj <= -Kij
+xj - xi <= -Kij + M
+.
+
+Entones, definimos el sistema de ecuaciones S como:
+
+xi - xj <= -Kij 
+xj - xi <= -Kij + M
+si ci y cj se pelearon y ci quedo mas a la izquierda
+
+xi - z <= M
+z - xi <= -1
+
+
+mismo algoritmo y bla bla.
