@@ -1,0 +1,36 @@
+Tenemos la lista G0...GN-1 de antidad T de edulcorante que les gusta a los respectivos amigos.
+Tambien, sabemos que el edulcorante dura K rondas. Entoneces, la cantidad de edulcorante que reibe la persona Ti = sum_{d = 0}^{k-1} E_{i - d mod N}.
+Luego, quiero saber si puedo satisfacer a todos a partir de la segunda ronda.
+
+Primero observemos que si k > n, entonces todavia se va a seguir sumando cantidad de edulcorante hasta llegar a las k rondas totales. Entonces, como vamos a tener un patron de edulcorante fijo para agregar al cebarle a cada persona, la unica forma de satisfacer a todos es si a nadie le gusta el edulcorante y no agrego edulcorante nunca al mate. En cualquier otro caso, con que una sola persona le guste el mate con edulcorante, ya no se va a poder satisfacer en forma constante. (probablemente deberia de demostrar esto).
+
+Ej:
+k = 6
+G = {2,2}
+1,1
+
+Saquemos ese caso trivial de lado y supongamos que k <= n a partir de ahora. Quiero modelar el problema con un Sistema de Restricciones de Diferencias. Lo que quiero modelar es que, a partir de la segunda ronda, donde ya se puede contar con que estan los valores de las ultimas k-1 cebadas acumuladas, al sumarle la cebada k se obtiene exactamente la cantidad de edulcorante que quiere la persona, para todas las personas.
+
+Entonces, tengamos una ecuacion por cada una de las personas, donde buscamos que para su gusto Gi valga que:
+
+Gi = sum_{d = 0}^{k-1} E_{i - d mod N}, 0 <= i <= N-1
+
+De todos modos, las ecuaciones de mi sistema deberian de tener la pinta xi-xj = cij para poder modelarlos en un grafo.
+Observemos, entonces, que para dos personas adyacentes en la mesa redonda i, i+1 mod N = j, el edulcorante respectivo de j debe ser el de la persona anterior, menos el valor del edulcorante evaporado mas lo que le agrego en esa ronda.
+
+Entonces, la ecuacion quedaria Tj = Ej + T(j-1 mod N) - E(j-k mod N).
+Como busco que Tj sea igual a Gj, es equivalente a que Gj = Ej + G(j-1 mod N) - E(j-k mod N)
+
+Entonces, tomemos S como el sistema de ecuaciones:
+
+Ej - E(j-k mod N) = Gj - G(j-1 mod N), para todo j en 0 <= j <= N-1
+
+Luego, como hay una ecuacion por cada persona, este sistema define exactamente lo que queremos: que la suma de todos los k-1 edulcorantes anteriores + el mio den la cantidad de edulcorante deseada.
+
+Como decia el enunciado, en este modelo cada incognita Ej aparece una sola vez positiva y solo una vez negativa a lo largo de todas las ecuaciones.
+
+b. Busco un algoritmo que verifique que el modelo de antes tiene solucion o no en O(n), siendo n la cantidad de ecuaciones. Observemos que la cantidad n de ecuaciones, como es una por persona, es el mismo n de la cantidad de gente que hay en la ronda.
+
+- Armo el grafo G(S) que corresponde al SRD, donde cada nodo es una de las incognitas Ej, y por cada ecuacion Ej - E(j-k mod N) = Gj - G(j-1 mod N) creamos la arista VjV(j-k mod N) con peso Gj - G(j-1 mod N). Como solo hay n incognitas, y armo solo 1 arista por cada una de las n ecuaciones, esto es O(n).
+
+- Recorro el grafo con un DFS y busco ciclos negativos. Si no hay devuelvo true y si hay false. O(n)
