@@ -1,0 +1,47 @@
+Observemos que hay cabinas de costo positivo y cabinas de costo negativo (las inversas).
+
+a. Modelar el problema de determinar si la ciudad permite el negocio del ciclo puré cuando el
+costo de transitar por cada cabina i de peaje es ci (ci < 0 si la cabina es inversa) y el costo
+que cuesta viajar de forma directa de cada cabina i a cada cabina j es cij > 0.
+b. Dar un algoritmo para resolver el problema del inciso anterior, indicando su complejidad
+temporal
+
+a. Observemos que tenemos dos tipos de costos: El costo por transitar un camino entre dos cabinas cij, el cual es positivo, y el costo por pasar por una cabina ci, el cual puede ser positivo o negativo. 
+Luego, podemos modelar el problema con el siguiente digrafo:
+- Los vertices V son todas las cabinas de la ciudad.
+- Las aristas E son todos los caminos que hay entre dos cabinas i y j. Entonces, dadas dos cabinas i y j tales que hay camino entre ellas, generamos dos aristas, i->j y j->i, tal que su peso es el peso de recorrer el camino cij + el precio de la cabina de entrada (por ejemplo, el peso de la arista i->j es ci + cij y de la arista j-> es cj + cij).
+
+Luego, resolver el problema de encontrar si la ciudad permite el negocio del ciclo del pure es equivalente a buscar en este digrafo ciclos negativos. Esto es porque, de no haberlos, no se podria hacer esta estrategia de generar ganancia infinitamente.
+
+b.
+
+Podemos utilizar el algoritmo de Bellman-Ford para encontrar estos ciclos negativos. Dadas la cantidad de cabinas n, los precios de las cabinas ci, y los precios de los m caminos cij = cji, propongo el siguiente algoritmo:
+
+- Generamos el digrafo. O(n + m)
+- Realizamos el algoritmo de Bellman-Ford desde cualquier vertice. O(nm)
+- Como Bellman-Ford encuentra todos los caminos minimos luego de n-1 iteraciones, realizamos una iteracion mas del algoritmo luego de haber terminado sobre el vector de distancias minimas. Si se modifico el vector, significa que existe un ciclo negativo en alguna parte que permite generar un camino mas corto pasando por n vertices (por algun ciclo) comparado a pasar por todos los vertices como mucho una vez. O(m)
+
+Complejidad O(nm)
+
+c.Modelar el problema de determinar si la ciudad permite el negocio de los ciclos puré cuando
+se aplica la nueva configuración para las cabinas. Además de la información utilizada para el
+problema original, ahora se conoce cuáles cabinas son mixtas: notar que el monto de cobro
+es ci y el monto de pago es −ci para la cabina mixta i (con ci > 0)
+
+Entonces ahora tenemos cabinas normales y cabinas mixtas, las cuales en vez de pagarte siempre, es decir tener costo negativo, su costo depende de si pagaste o te pagaron antes, o tu ultima cabina tenia costo positivo o negativo. En particular, te pagan lo mismo que te cobran, y es inversa a la ultima operacion realizada (si pagaste cobras, y si cobraste pagas).
+Observemos que las cabinas mixtas, entonces, funcionan como cabinas normales o cabinas inversas segun la funcion de la cabina anterior. 
+
+Luego se puede modelar el problema de la siguiente forma:
+
+Generamos dos digrafos, uno G en el cual todas las cabinas mixtas son normales, y el costo es positivo (se paga por transitarlas), y otro G' donde todas las cabinas mixtas son inversas (te pagan por transitarlas). 
+
+De este modo, lo que buscamos es que el digrafo G represente haber pagado por una cabina, y el digrafo G' represente pagar denuevo (de pasar por una cabina normal) o cobrar si paso por una mixta. De este modo, cada vez que me encuentro en el grafo G en el cual siempre pago, me gustaria que todos los caminos me lleven al otro digrafo G' donde voy a poder cobrar, y cada vez que cobre en G' pase a G cuando si o si voy a tener que pagar.
+
+Luego, dadas las cabinas I y J que comparten un camino entre si y sus respectivos vertices en G, i y j, y en G', i' y j', tenemos que las aristas son:
+
+- i->j' (luego de pagar, voy al grafo en el cual puedo no pagar).
+- Si I es cabina mixta, i'->j (luego de cobrar pago si o si).
+- SI I es cabina normal, i'->j' (tengo que pagar nuevamente asi que me mantengo en el digrafo G' donde puedo cobrar).
+
+El problema se resuelve con el mismo algoritmo del punto B aplicado a este nuevo modelo.
+

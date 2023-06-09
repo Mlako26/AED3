@@ -1,0 +1,42 @@
+SRD es un sistema de inecuaciones con m inecuaciones (una por arista) y n incognitas (una por vertice). Luego,  D(S) es un digrafo de el SRD S tal que cada nodo es una incognita y comparten una arista vi->vj de peso cij si xi - xj <= cij. Tambien, hay un vertice v0 tal que v0->vi con peso 0, para todo 1 <= i <= n.
+
+a. Si D(S) tiene un ciclo negativo, significa que existe un ciclo de aristas dirigidas tal que al pasar dos veces por un lugar el peso acumulado es negativo. Como las aristas en D(S) son entre dos vertices vi->vj con peso cij tal que en S existe la inecuacion xi - xj <= cij, tenemos que si el ciclo es 
+
+v1,v2,...vk,v1, donde las aristas son v1->v2->...->vk->v1,
+
+entonces en S existen las inecuaciones
+
+v1-v2 <= c12
+...
+vk-v1 <= ck1
+
+Como el ciclo es negativo, en particular tenemos que 
+
+c12 + c23 + ... + ck1 < 0.
+
+Pero por definicion en S, tenemos que 
+
+c12 + c23 + ... + ck1 =
+(x1-x2) + (x2-x3) + ... + (xk-x1) =
+x1 + (-x2+x2) + (-x3+x3) + ... + (-xk+xk) - x1 = 
+0 < 0, lo cual es un absurdo. Por consecuente, S es un sistema incompatible.
+
+b.
+
+{xi = d(v0, vi)| 1 <= i <= n} es solucion si D(S) no tiene ciclos negativos.
+
+Como D(S) no tiene ciclos negativos, en particular todos sus ciclos tienen peso acumulado >= 0. Luego, significa que para cualquier ciclo se da que 
+
+(x1-x2) + (x2-x3) + ... + (xk-x1) =
+x1 + (-x2+x2) + (-x3+x3) + ... + (-xk+xk) - x1 = 
+0 >= 0, lo cual ahora si funciona. 
+
+Tambien, si tomamos para todo i posible x1 = d(v0, v1), notemos que existe una arista directa entre v0 y todos los demas vertices con peso cero, con lo cual d(v0, vi) = 0, para todo i. Entonces, x1 = x2 = ... = xn = 0.
+Luego, S nos queda que para toda inecuacion vale que
+xi-xj <= cij <-> 0 <= cij <-> todas las aristas son >= 0 en D(S).
+
+Entonces, es un sistema compatible, ya que si todos los pesos de las aristas valen >= 0 no se pueden tener ciclos negativos.
+
+c.
+
+Como ponerle 0 a todas las x es una solucion posible, el algoritmo se reduce a verificar si existen ciclos negativos o no. Entonces, podemos usar Bellman-Ford para checkear la existencia de los mismos en O(nm). Si existen, puedo recorrer todas las aristas hasta encontrar un ciclo de peso negativo y devolverlo en O(n + m) con un DFS.
