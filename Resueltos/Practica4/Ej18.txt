@@ -1,0 +1,15 @@
+Proyecto dividido en etapas v1...vn
+cada etapa toma tiempo ti >= 0. Para comenzar la etapa vi, se debe de haber terminado algunas etapas vj tal que j < i. t1 = 0 = tn. 
+Una etapa es critica cuando si se atrasa provoca un retraso en la finalizacion del proyecto. 
+
+Quiero diseñar un algoritmo lineal en la cantidad de etapas tal que encuentre todas las criticas. Primero unas observaciones:
+
+- Cada etapa tiene dos caracteristicas: tiene un tiempo de realizacion, y tiene un conjunto de etapas las cuales tienen que finalizar antes de que ella finalice.
+-v1 tiene tiempo 0 y no espera a ninguna etapa pero todas dependen de ella.
+-vn tiene tiempo 0 y depende de todas las etapas. Como es la ultima, ninguna depende ella.
+
+Luego, podemos pensar el problema como un grafo dirigido aciclico DAG donde los vertices son las etapas, las aristas entre vi->vj las dependencias de las etapas, y el costo de las aristas es el costo de la etapa de salida.
+
+Pensemos que es una etapa critica. Una etapa es critica si, al atrasarse, provoa un retraso en la finalizacion del proyecto. Para finalizar el proyecto, debemos de finalizar vn la cual requiere que todas las etapas se concreten tambien. En ese sentido, si cualquier etapa se retrasa se retrasara todo el proyecto? Sino, que significa que no sea critica?
+
+La verdad ni idea de esto. Creo que lo voy a dejar aca este ejercicio.
