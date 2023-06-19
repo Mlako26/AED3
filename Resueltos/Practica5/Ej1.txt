@@ -1,0 +1,44 @@
+a. Si la capacidad de cada arista de N es par, entonces el valor del flujo maximo es par.
+
+Supongamos que la capacidad de cad arista de N es par. Luego supongamos que el flujo maximo de esta red es impar. Luego, tomando la funcion de flujo que maximiza el valor neto, por la ley de conservacion de flujo, para cada corte de la red que encontremos el flujo que sale del corte tambien sera impar. Tomemos un corte cualquiera de N. Luego, existe al menos una arista sobre la cual pasa una cantidad impar de flujo (si solo pasasen cantidades pares por aristas, la suma de los flujos seria par). En consecuente, como las capacidades de todas las aristas son pares, las aristas por las cuales pase flujo impar tienen capacidad para mas flujo. Entonces, se podria aumentar el flujo de esas aristas hasta llenarlas. Como esto lo vemos para cualquier corte, en particular siempre podremos encontrar un camino sobre el cual aumentar el flujo hasta uno par desde s hasta t -> Flujo maximo par -> absurdo -> Provino de suponer flujo maximo impar.
+
+b. Si la capacidad de cada arista de N es par, entonces existe un flujo maximo en el cual el flujo sobre cada arista de N es par.
+
+Voy a demostrando esto haciendo induccion en el algoritmo de Ford-Fulkerson. Mi hipotesis inductiva sera que, para la iteracion k del algoritmo, se encontrara el flujo fk tal que fk(e) es par, para toda e in A.
+
+Caso base: Cuando se inicializa el algoritmo, en particular hay que administrarle con un flujo valido en la red. En particular, podemos utilizar el flujo tal que f(e) = 0, para todo e in A. Luego, se cumple que el flujo de cada arista es par.
+
+Paso Inductivo:
+
+Supongamos que luego de k iteraciones del algoritmo, se econtro un flujo fk tal que el flujo que pasa por toda arista es par. Luego, el algoritmo de Ford-Fulkerson busca el proximo camino de aumento sobre la red residual para calucular el delta. En particular, delta(P) puede valer dos cosas: o xji (es decir, el flujo que ya pasaba por una arista particular), o uij - xij (la capacidad de una arista menos el flujo que pasaba por ella). En particular, xji ya es par por HI, y uij - xij es una resta de numeros pares por enunciado e HI, con lo cual tambien es par. Luego, ya que el delta es el minimo de estos valores, el delta tambien sera par, y al restarlo o sumarlo a las aristas del flujo de la iteracion k, los nuevos valores de flujo tambien seran en consecuente pares.
+
+Luego, como para cada iteracion del algoritmo de Ford-Fulkerson los valores de flujo son pares para todas las aristas, cuando termine tambien lo seran, y existe un flujo maximo donde todos los pesos son pares.
+
+c. Si la capacidad de cada arista de N es impar, entonces el flujo maximo es impar.
+
+Un contraejemplo seria el siguiente:
+   (1,1)
+  /    \
+ /      \ 
+s        t  
+ \      /
+  \    /
+   (1,1)
+
+Como se puede ver, todas las aristas tienen capacidad impar (1), con lo cual el maximo flujo es enviar 1 por ambos caminos de s a t, con lo cual el flujo maximo es par.
+
+
+d. Si la capacidad de cada arista de N es impar, entonces existe un flujo maximo en el cual el flujo sobre cada arista de N es impar.
+              (1,1)
+             /    \
+            /      \
+s-----(3,2)         t
+            \      /
+             \    /
+              (1,1)
+
+En este caso, por ejemplo, las capacidades de las aristas son 3 para la primera y 1 para todas las 4 demas, con lo cual el maximo flujo que podria llegar a alcanzar a t es 2. Pero, para ello se debe de enviar 2 de flujo desde s hacia el proximo nodo, con lo cual la capacidad de todas las aristas es impar pero no existe flujo maximo donde todos los valores de flujo sean impares.
+
+e. Si todas las aristas de N tienen capacidades racionales, entonces el flujo maximo es racional.
+
+Contraejemplo es igual al C pero en vez de 1 de capacidad para todas las aristas, 1.5.

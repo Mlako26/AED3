@@ -1,0 +1,21 @@
+Sea G un digrafo con dos vertices s y t.
+
+a. Proponer un modelo de flujo para determinar la maxima cantidad de caminos disjuntos en aristas que van de s a t.
+
+Quiero encontrar la maxima cantidad de caminos disjuntos en aristas que van de s a t. Es decir, estos caminos pueden pasar por los mismos vertices pero no pueden repetir ninguna arista.
+
+Luego, podemos modelar la red como el fuente s, el sumidero t, y luego todas las aristas entre nodos con capacidad 1. Luego, podran haber dout(s) caminos diferentes al comienzo del recorrido, pero luego de encontrarse en una arista suamarian 2, lo cual seria un flujo invalido. Luego, a t llegaria una cantidad de flujo equivalente a la cantidad de caminos disjuntos en aristas.
+
+b.
+
+Dar una interpretacion a cada unidad de flujo y cada restriccion de capacidad.
+
+Cada unidad de flujo es un posible camino disjunto diferente. Entonces, desde s solo pueden salir dout(s) caminos diferentes, lo cual tiene sentido ya que sino compartirian aristas. Luego, de encontrarse en una arista dos caminos, se generaria un cuello de botella por el que solo puede pasar una, con lo cual la otra debe de buscar otro lugar por donde recorrer. De no encontrarlo, entonces el flujo termina siendo invalido, y no se pueden tener esa cantidad de caminos disjuntos diferentes.
+
+c.
+
+Tenemos que demostrar que el modelo es correcto.
+
+La verdad no se como demostrar esto. Despues voy pensandolo mejor.
+
+d. O(mn), ya que la cantidad de caminos disjuntos maxima esta acotada por las aristas salientes de s.

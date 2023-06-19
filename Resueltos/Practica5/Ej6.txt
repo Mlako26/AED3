@@ -1,0 +1,29 @@
+6. Sea G un grafo con dos vértices s y t.
+a) Proponer un modelo de flujo para determinar la máxima cantidad de caminos disjuntos en
+vértices que unen a s y t.
+b) Dar una interpretación a cada unidad de flujo y cada restricción de capacidad.
+c) Demostrar que el modelo es correcto.
+d) Determinar la complejidad de resolver el modelo resultante con el algoritmo de Edmonds y
+Karp.
+
+a. Queremos ahora encontrar la maxima cantidad de caminos disjuntos entre s y t pero en vertices. Podemos modelar este problema haciendo que cada nodo del grafo menos s y t cuente con dos nodos en la red N, de la siguiente forma:
+
+Sea v un nodo en V(G), tomamos v' y v'' los nodos de la red N, tal que todas las aristas de entrada apuntan a v', v' tiene una arista que apunta a v'', y todas las aristas de salida salen desde v''.
+
+De este modo, se tienen 2 veces la cantidad de nodos, y m + n cantidad de aristas.
+
+Cada una de estas aristas tendran capacidad 1.
+
+b. Cada unidad de flujo es un camino diferente disjunto. De este modo, para toda arista e_i entre vertices v_i' y v_i'' solo podra pasar una unidad de flujo, y en consecuente solo un camino disjunto podra pasar por el vertice. Entonces, el flujo maximo sera la maxima cantidad de caminos entre s y t tal que ninguno comparta vertices.
+
+c. Para demostrar esto, vamos a probar lo siguiente: si f es un flujo de valor k sobre esta red N, entonces el conjunto de vertices tal que f(e) = 1 contienen k caminos disjuntos en vertices. Probemoslo sobre la cantidad de ejes con flujo 1.
+
+Caso base: Cuando k = 1, tenemos trivialmente un camino que pasa solamente una vez por cada vertice.
+
+Hipotesis inductiva: Supongamos que tenemos un flujo con valor k. Sea (s,u) una arista que tiene flujo. Por la ley de conservacion, entonces existe otra arista saliente de u que tambien tiene flujo, y asi. Luego, repitiendo esto, puede pasar que lleguemos a t, o que generemos un ciclo.
+
+Caso 1: Si llegamos a t, entonces existe un camino entre s y t que tiene flujo 1 en la red. Si reducimos el flujo del camino a 0, entonces generamos una nueva funcion de flujo f' con valor k-1. Por HI, sabemos que tiene menos ejes con flujo (f(e) = 1) y por lo tanto estos contienen k-1 caminos disjuntos en vertices. Luego, agregando el camino que redujimos el flujo, las aristas con flujo en f contienen k caminos disjuntos en vertices.
+
+Caso 2: Supongamos que terminamos en un ciclo. Si encontramos un ciclo tal que todas sus aristas tengan flujo en nuestra funcion f, entonces le reducimos el flujo a todas las aristas del ciclo a 0. Luego, como era un ciclo, el valor del nuevo flujo f' sigue siendo k, pero como hay menos aristas sabemos por HI que estas contienen k caminos disjuntos en vertices. 
+
+Entonces, en ambos casos se da que, de tener un flujo con valor k, las aristas con peso contienen k caminos disjuntos en vertices diferentes. Luego, tomando el flujo maximo de nuestra red, vale que su valor es igual a la cantidad de caminos disjuntos en vertices.
