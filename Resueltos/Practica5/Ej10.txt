@@ -1,0 +1,5 @@
+Un grafo es euleriano si y solo si el digrafo es conexo y d+v = d-v para todo v.
+
+a. Queremos ver si un grafo mixto dado es euleriano. Es deicir, si orientamos todas sus aristas no orientadas, entonces debe de existir un recorrido que pase por todas las aristas. Esto puede verse con la propiedad de arriba. Luego, podemos modelar el problema con la siguiente red:
+
+Para los vertices, tenemos un nodo s fuente y t sumidero. Luego, por cada arista en E tenemos tres nodos tambien, uno para la arista y uno para cada vertice que conecta. ????

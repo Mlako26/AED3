@@ -1,0 +1,54 @@
+Queremos llenar una matriz de nxm tal que la fila i sume ri y la columna j sume cj.
+
+a. Como modelo, podemos tomar la siguiente red:
+
+Cada celda de la matriz es un nodo diferente, agregando tambien los nodos s fuente y t sumidero. Tambien, agregamos n + m nodos mas, representando cada ri y cj. Para las aristas:
+- s conecta a todos los ri y cj con capacidad ri y cj.
+- cada ri conecta con las celdas de su fila, y cada cj conecta con las celdas de su columna con capacidad ri y cj.
+- cada celda conecta con t con capacidad min(ri, cj) de pertenecer alli.
+
+b. Cada unidad de flujo representa una unidad numerica en la matriz. Es decir, el equivalente a la suma de todos los numeros de la matriz.
+
+Luego, s le puede enviar a cada fila o columna la maxima cantidad posible para que ellas las distribuyan entre sus celdas. La capacidad de las aristas entre fila/columna a celdas son la misma restriccion que las anteriores, ya que de todos modos cada fila/columna no recibe mas flujo que eso (podria ser infinita la capacidad y no cambiaria). Luego, cada celda conecta con t con la capacidad min(ri, cj) ya que es el valor maximo que podria adoptar cumpliendo las reglas del problema a modelar. Observar que de pasarse la cantidad numerica que alverga esta celda al minimo entre ri y cj, entonces su respectiva fila/columna tendra mas valor de lo que deberia de sumar (los numeros son naturales y no hay otra celda que reste).
+
+c. Queremos demostrar que el modelo propuesto es correcto. Esto puede hacerse demostrando que existe una forma de asignar sum{ri} = sum{cj} unidades numericas en la matriz M si y solo si existe un flujo factible que suma exactamente sum{ri} = sum{cj}.
+
+-->
+
+Existe una forma de asignar sum{ri} = sum{cj} unidades numericas en M --> existe un flujo factible que sume exactamente sum{ri} = sum{cj}.
+
+Como existe una solucion para asignarle valores a la matriz M y que se cumplan las restricciones, por cada unidad numerica que aumente el valor de un subvector(fila/columa) vec en la celda Cij, construimos un camino de flujo 1 de la siguiente forma:
+
+- Asignamos 1 de flujo en la arista s->vec.
+- Asignamos 1 de flujo en la arista vec->Cij
+- Asignamos 1 de flujo en la arista Cij->t
+
+Siempre van a existir las aristas mencionadas, ya que s apunta a todos los subvectores, todos los subvectores a sus celdas, y todas las celdas a t.
+
+Tambien, observemos que el flujo respeta las capacidades:
+- s -> vec siempre asigna ri/cj maximo porque no puede haber mas de esa cantidad en el subvector
+- vec -> Cij siempre puede asignar hasta ri/cj ya que podria asignarle todo el flujo recibido
+- Cij -> t siempre se le asigna min{ri, cj} maximo ya que no pueden tener mas de ri, cj unidades el subvector.
+
+El flujo respeta la conservacion tambien ya que por cada asignacion se agrega 1 en el vec, 1 en una celda, y 1 en t.
+
+Por ultimo, la asignacion de flujo es exactamente la misma que la solucion a modelar ya que tenia exactamente sum{ri} = sum{cj} unidades numericas, repartidas en cada celda, al igual que en el flujo.
+
+
+<--
+
+Existe un flujo factible que sume sum{ri} = sum{cj} -> existe una forma de asignar unidades numericas a la matriz M.
+
+Por cada unidad de flujo que sale de s a un nodo subvector vec t pasa por una celda Cij, podemos sumarla a la celda en particular.
+
+Esto respeta las restricciones ya que:
+- Se asignan hasta ri/cj unidades numericas en cada fila o columna especifica ya que s->vec tiene esa capacidad.
+- Existia la arista entre vec a sus celdas.
+- No se asignan mas de min{cj, ri} unidades numericas por celda porque es la capacidad de la arista hacia t.
+
+Por ultimo, la asignacion realizada es exactamente sum{ri} = sum{cj} unidades numericas ya que como habia esa cantidad de flujo, cada unidad representa un 1 a sumar a una celda, y pudimos asignar a todos.
+
+d. Tenemos en total un nodo por celda y un nodo por subvector, con lo cual hay nm + n + m nodos = O(nm).
+Por otro lado, tenemos aristas desde s hacia todo subvector, n + m, desde los subvectores hacia cada celda, 2*mn, y cada celda a t, mn. = O(mn).
+
+Entonces, como EK es O(nodos * aristas2), el algoritmo queda O(m3n3)

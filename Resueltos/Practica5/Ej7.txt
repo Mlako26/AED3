@@ -1,0 +1,21 @@
+Dados los conjuntos F = {f1,...,f|F|}, M = {m1,...,m|M|}, y C = {cij, 1 <= i <= |F| y 1 <= j <= |M|}, busco un modelo de flujo que determine una asignacion que respete lo siguiente:
+
+- La familia i esta formada por fi personas solteres
+- la mesa j tiene mj lugares disponibles para solteres,
+- en la mesa j solo pueden sentarse cij solteres de la familia i.
+
+Primero pensemos en la red que modelara el problema:
+
+Cada unidad de flujo sera un asiento a asignar. Luego, agregamos un nodo a nuestra red por cada mesa, y un nodo a la red por cada familia. Agregamos ademas nodos s y t como fuente y sumidero.
+
+Para las aristas, conectamos a s a cada mesa j con capacidad mj, cada mesa j a cada familia i con capacidad cij, y cada familia i a t con capacidad fi.
+
+b. 
+
+Cada unidad de flujo es entonces una asignacion de asiento, y las restricciones permiten que se respeten las tradiciones. Por un lado, s solo le puede mandar a las mesas flujo proporcional a su cantidad maxima de asientos, cada mesa solo le puede mandar a cada familia flujo proporcional a la cantidad de miembros que pueden estar en ella, y cada familia le manda flujo a t proporcional a la cantidad de miembros. 
+
+c.
+
+Resolver el modelo implica encontrar el flujo maximo en esta red. Si el valor del flujo maximo es la suma de todos los solteros, entonces se pudo asignar asientos a cada una de las personas correctamente y siguiendo cada unidad de flujo se puede saber que asiento esta cada persona.
+
+Hay O(|M| + |F|) nodos, y O(|M| + |M||F| + |F|) = O(|M||F|) aristas. Luego, obtener el flujo maximo con EK es O(nm2) = O((|M| + |F|)|M|2|F|2) = O(|M|3|F|2 + |M|2|F|3). 
