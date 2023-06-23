@@ -1,0 +1,89 @@
+Para cada uno de los siguientes problemas, proponer un certificado de tamaño polinomial de cada instancia positiva que se pueda verificar en tiempo polinomial. En caso que el problema sea polinomial, el certificado debe ser distinto a la instancia. Describir claramente como funciona el verificador correspondiente.
+
+a. Factorizacion. 
+
+Dados m y n, m tiene un factor k con 1 < k < n?
+
+El certificado es, dado un numero k, 1 < k < n, saber si m es divisible por k.
+
+Entonces, se le da m y k, y calcula m mod k == 0.
+
+Size = menor o igual a log(m)
+Complejidad = Calcular m mod k es O(log(x)2), que es polinomial con respecto a la entrada.
+
+b. Min.
+
+Dado un conjunto de naturales y k, min{A} <= k. Cabe aclarar que resolver este problema es polinomial.
+
+El certificado es, dado un numero perteneciente a A, veririficar si es el minimo <= k perteneciente a A.
+
+Entonces, se le da el conjunto A, k, y un numero en A, y calcula si es el minimo en A que cumple la condicion.
+
+Size = lineal con respecto a A.
+Complejidad = O(|A|), ya que recorremos linealmente el conjunto para ver si hay uno mejor.
+
+c. Maxflow.
+
+dada una red N con fuente s y sumidero t y un natural f, N tiene un flujo de valor mayor o igual a f?
+
+El certificado es, dado un flujo factible de N, verificar si su valor es mayor o igual a f.
+
+Entonces, se le da la red N, el valor f, los valores de s y de t, y el flujo a probar, y se cuenta la cantidad de flujo que sale de s. En caso de ser mayor a f, devuelve que si, sino no.
+
+Size = lineal con respecto a la entrada. Es el digrafo original mas los valores del flujo a testear.
+
+Complejidad = lineal con respecto a las aristas del grafo. Si s esta conectado a todos los nodos, tengo que sumar el flujo que sale hacia todos los nodos. O(m).
+
+d. Shortest Path.
+
+dado un digrafo pesado G, dos vertices s y t, y un natural k, G tiene un recorrido de s a t de peso menor o igual a k?
+
+El certificado es, dada una secuencia de nodos que comiencen en s y terminen en t, verificar que forman un recorrido en el grafo G que pese menor o igual a k.
+
+Luego, se le da el digrafo pesado G, los vertices s y t, k, y una secuencia de <= m aristas. Entonces, el algoritmo es ver si la secuencia de las aristas define un recorrido entre s y t, y luego comparar su peso con el de k. 
+
+Size = lineal con respecto a la entrada del grafo. Aparte de suministrar el grafo, como mucho hay m aristas.
+
+Complejidad = recorrer las aristas de izquierda a derecha y ver si comienzan en s, terminan en t, y ver si conectan nodos correctamente. Luego comparar peso con k. Suponiendo que las aristas suministradas pertenecen al digrafo, esto puede hacerse en O(m). De tener que verificar ademas si pertenecen al grafo, de tener una matriz de adyacencias del mismo, checkear si una arista existe es O(1), con lo cual tambien puede hacerse en O(m).
+
+e. Elementary SP.
+
+Dado un digrafo pesado G, dos vertices s y t, y un natural k, G tiene un camino minimo de s a t de peso menor o igual a k?
+
+Igual que el anterior pero con nodos. Donde maximo me pasan n nodos (camino donde recorremos a todos los nodos de alguna forma). El certificado revisa si los nodos no estan repetidos, si efectivamente se define un camino entre s y t, y luego compara peso con k.
+
+Size = lineal con respecto al digrafo.
+
+Complejidad = O(n) checkear si se define un nodo y comparar con k, en caso de tener el digrafo como una matriz de adyacencias, y verificar si no estan repetidos se puede hacer pintando los nodos vistos en tiempo de ejecucion. O(n).
+
+f. Hampath.
+
+Dado un digrafo G y dos vertices s y t, G tiene un camino de s a t que pase por todos los vertices de G.
+
+Igual que en la clase practica, pedimos que el certificado sea una secuencia de nodos de size n+1, y el verificador checkea si en el grafo definen un recorrido entre s y t que pase por todos los nodos.
+
+Size = lineal con respecto al grafo.
+
+Complejidad = polinomial con respecto a la entrada, es verificar si la secuencia es valida e ir pintando los nodos mientras los recorremos para ver si llegamos a pintar todos.
+
+h. k-Clique.
+
+Dado un grafo G, G tiene un subgrafo completo de size mayor o igual a k? Nota: son infinitos problemas, uno por cada k.
+
+Observemos rapidamente que son infinitos problemas donde el k esta fijo, con lo cual tambien la cantidad de certificados seran infinitos, uno para cada uno. Trabajemos con uno cualquiera k-Clique.
+
+Entonces, el certificador sera un conjunto de mayor o igual a k nodos, y el verificador observara si forman un grafo completo utilizando solamente las aristas del grafo original G.
+
+Luego, el verificador solo necesita el conjunto de puntos, el grafo original G, y recorriento linealmente los nodos del conjunto observa si esta conectado a todos los demas a traves de las aristas de G.
+
+Size = lineal con respecto a G, ya que es el grafo mas algunos vertices.
+
+Complejidad = Recorrer linealmente el conjunto y como mucho mirar todas las aristas de cada uno de los vertices en el, O(nm) polinomial.
+
+i. Clique.
+
+Dado un grafo G y un natural k, G tiene un subgrafo completo de size mayor o igual a k?
+
+Es igual al ejercicio anterior pero ahora el k no esta fijo sino que es una variable de la instancia. Entonces, el certificado podria ser un conjunto cualquiera de a lo sumo n elementos, la cantidad total de nodos de G.
+
+Luego, el verificador toma el grafo G, el natural k y el conjunto, y verifica al igual que el ejercicio anterior si forman un grafo completo utilizando solamente las aristas en G y aparte checkea si el size del conjunto es mayor o igual a k.
