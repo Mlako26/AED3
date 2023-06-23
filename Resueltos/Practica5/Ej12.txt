@@ -1,0 +1,13 @@
+Buscamos maximaizar la cantidad de figuritas no repetidas que se pueden obtener, teniendo en cuenta que:
+
+- Carle conoce todas las figuritas repetidas (y la cantidad de repeticiones) de cada companere.
+- Todes les companeres intercambian primero con Carle, antes de intercambiar entre elles.
+- Todes les companeres utilizan el protocolo late-nola para intercambiar con Carle, mientras que Carle ya sabe qu le podria convenir obtener figuritas que ya tiene.
+
+Sea n la cantidad de tipos diferentes de figuritas, y k-1 la cantidad de amigos de Carle. Luego, rji es la cantidad de figuritas que tiene el amigo j del tipo i. r0i es la cantidad de figuritas que tiene Carle del tipo i.
+
+Podemos modelar el problema de la siguiente forma:
+
+Primero, tenemos un nodo s fuente y un nodo t sumidero. Luego, creamos k * n nodos, tal que el nodo ij represente la cantidad de figus que tiene la persona i del tipo j.
+
+Me spoilee del repo de Fedeaar pero se puede hacer menos complicado siento. nvm paso a la proxima guia que esta me dio fiaca

@@ -1,0 +1,37 @@
+Se quieren comprar adaptadores, que tienen forma de entrada y de salida. Se pueden encadenar. De los adaptadores que venden, se dispone de una cantidad ilimitada.
+
+Buscamos minimizar la cantidad de dispositivos que se quedan sin corriente electrica sabiendo:
+
+-Los periodistas traen di dispositivos que usan un tomacorrientes de cada tipo i.
+-La sala principal tiene ti tomacorrientes de cada tipo i.
+-Los pares ij de entradas y salida de los adaptadores vendidos por la fabrica.
+
+a. Supongamos que tenemos n tipos de tomacorrientes. Luego, tenemos di dispositivos de cada tipo, ti entradas de cada tipo, y pares ij de e/s de adaptadores.
+
+Podemos modelar el problema de intentar minimizar la cantidad de dispositivos sin corriente electrica de la siguiente forma:
+
+Tenemos un nodo s fuente y un nodo t sumidero. Luego, conectamos a s a n nodos, uno por cada tipo de tomacorriente, con capacidad ti. Luego, por cada tipo de adaptador generamos un nodo, y conectamos el nodo vi anterior al tomacorriente jk si y solo si i = k (si la entrada del toma es igual al tomacorriente). Ademas conectamos los tomacorrientes entre si uniendo salidas con entradas iguales. Todo esto con capacidades infinitas. Luego, generamos nuevamente n nodos, uno por cada tipo de tomacorriente y conectamos los nodos vi a vi' directamente con capacidad infinito y tambien los tomacorrientes que tengan la misma salida. Por ultimo, todos estos nodos vi' con t con capacidad di.
+
+b.
+
+La red es bastante directa. Tomemos cada unidad de flujo como asignar un tomacorriente a un dispositivo.
+
+Paso a paso:
+
+- s->vi: como hay ti tomacorrientes de tipo i, puedo como mucho enviar ti de flujo a cada nodo vi, que representa los diferentes tomacorrientes.
+- vi->vi': Esta arista representa conectar los dispositivos directamente a los tomacorrientes sin ningun adaptador de por medio. Solo conectamos vi con vi' ya que solo el mismo tipo de dispositivo puede conectarse al tomacorriente de tipo i. Luego, esta arista tiene capacidad infinita ya que la cantidad de flujo que pasara por ella esta acotada por los flujos salientes de s (ti).
+- vi->ki: Esta arista representa utilizar un tomacorrientes de tipo i pero conectarle un adaptador para que pueda utilizarse un dispositivo o adaptador de tipo k. Capacidad es igual a la anterior.
+- ki->ij: Representa concatenar dispositivos. Misma capacidad.
+- ki->vk': Representa haber conectado dispositivos de tipo k con un adaptador de salida i. Misma capacidad.
+- vi'->t: Representa la cantidad efectiva de dispositivos que se pudieron conectar de cada tipo. La capacidad de las aristas es di, ya que solo debemos de conectar esa cantidad de dispositivos.
+
+Luego, la idea general de la red es maximizar la cantidad de flujo, que es cantidad de dispositivos conectados. Sale como mucho sum{ti} flujo, el cual puede viaja a lo largo de los adaptadores o directamente desde el toma hasta el dispositivo. Luego, la salida de los dispositivos hacia t es como mucho sum{di}, que es la cantidad total de dispositivos a conectar.
+
+c. La complejidad de resolver cualquier modelo de flujo maximo con EK es O(nm2). La cantidad de nodos en este modelo es s + t + 2n + cantidad de adaptadores k. O(n + k). En el peor caso, de todos modos, tenemos todos los adaptadores, y luego k = O(todas las entradas * todas las salidas) = O(n2).
+Entonces, la cantidad de nodos es O(n2).
+
+Por otro lado, las aristas son n desde s hacia vi, n desde vi hacia vi', y luego en el caso en el que se disponen de todos los adaptadores, tenemos n aristas nuevas hacia los adaptadores y desde los adaptadores hacia los vi'. Cuantas aristas hay entre los O(n2) adaptadores. Sale como mucho una arista por adaptador, con lo cual hay O(n2) aristas por adaptador.
+
+Luego, O(nm2) = O(n2* n2^2) = O(n^6).
+
+De todos modos, observemos que la maxima cantidad de flujo sera n * suma de los dispositivos tambien, con lo cual su complejidad tambien podria ser O(n2*sum{di}).
