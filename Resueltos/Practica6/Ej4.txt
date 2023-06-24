@@ -1,0 +1,11 @@
+Tenemos x una instancia de un problema de decision PI.
+Tenemos A un algoritmo de PI O(C).
+Buscamos verificador O(C) que demuetre que x es un certificado de si misma.
+
+Sabemos que x sera un certificado de si misma si, dado el certificador polinomial M, PI(x) = 'si' sii M(x,x) = 1.
+
+Lo que necesitamos ahora es un verificador polinomial, pero simplemente podemos tomar el verificador M = A. Luego, tiene la misma complejidad que A, con lo cual es polinomial con respecto al problema original, y el certificado es polinomial con respecto a la entrada, ya que x = x. Con lo cual, son efectivamente un certificado y un certificador. Luego, como el certificador es exactamente el programa que resuelve el problema PI, sabemos que PI(X) = 'si' sii M(X) = 'si'.
+
+Certificar instancias cuando el algoritmo es polinomial termina siempre en el certificado trivial, ya que tomando el mismo algoritmo polinomial que resuelve el problema y la misma entrada se consigue un certificador.
+
+En cierto sentido, para hacer este tipo de certificadores simplemente usamos el mismo algoritmo que calcula PI directamente, con lo cual utilizar el verificador para obtener el mismo resultado en el intento de evitar programar un codigo dificil es absurdo.
