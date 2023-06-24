@@ -1,0 +1,21 @@
+a. <G,s,t,k> es una instancia positiva de EVEN-PATH si y solo si <G', (s,p), (t,p), k> es una instancia positiva de PATH.
+
+--->
+
+<G,s,t,k> es una instancia positiva de EVEN-PATH --->
+<G', (s,p), (t,p), k> es una instancia positiva de PATH.
+
+Si <G,s,t,k> es una instancia positiva de EVEN-PATH, significa que existe un recorrido en el digrafo G de s a y con longitud par y menor o igual a k.
+
+Luego, podemos tomar el digrafo G' como una biparticion, donde una particion contenera los vertices (v,p) y la otra los vertices (v,i). Es facil de ver, con el enunciado, que la biparticion se cumple, ya que G' tiene las mismas aristas que en G solo que no viajan entre el mismo tipo de segunda componente.
+
+Luego, buscamos un recorrido entre (s,p) y (t,p) en G' cuya longitud sea menor o igual a k, pero observemos que como el recorrido observado en G era de longitud par, significa que hay un recorrido entre (s,p) y (t,p) valido a pesar de estar en la misma particion. De haber sido impar el recorrido, no hubiesemos podido usarlo como ejemplo en G'. Luego, el recorrido en G' es identico al de G solo que al atravezar la siguiente arista se cambia de particion observada.
+
+<---
+
+<G', (s,p), (t,p), k> es una instancia positiva de PATH --->
+<G,s,t,k> es una instancia positiva de EVEN-PATH 
+
+Existe un recorrido en G' entre (s,p) y (t,p) de largo menor o igual a k. Luego, tomando G' como la biaparticion igual a la ida, notamos que el camino este necesariamente debe de ser de largo par.
+
+Luego, tomando solamente la primera componente de los vertices tupla, obtenemos los vertices en G que forman un camino entre s y t en G de largo par menor o igual a k.

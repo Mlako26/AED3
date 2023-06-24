@@ -1,0 +1,3 @@
+Es cierto que dos problemas PI y GAMMA pertenecen a NPC entonces PI <=P GAMMA< y tambien GAMMA <=P PI?
+
+Verdadero. Esto es porque, para que un problema pertenezca a NPC, debe de pertenecer a NP y ademas ser NP-HARD. Es decir, para todo problema II en NP, II <=P PI/GAMMA. Luego, como tanto PI y GAMMA estan en NP por ser NPC, en particular PI <=P GAMMA y GAMMA <=p PI.

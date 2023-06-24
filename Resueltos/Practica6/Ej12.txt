@@ -1,0 +1,31 @@
+a. P in NP Y P in coNP.
+
+Verdadero.
+
+P es el conjunto de problemas que pueden ser resueltos por algoritmos polinomiales, mientras que NP es el conjunto de problemas que tienen un certificador polinomial. En particular, como todos los problemas en P son su mismo certificador polinomial, todos los problemas pertenecientes a P pertenecen a NP. 
+
+Por otro lado, coNP es el conjunto de problemas tales que su complemento esten en NP. Como los problemas en P tienen un algoritmo que los resuelven en tiempo polinomial, en particular todos sus problemas complementos pueden resolverse tambien con un algoritmo polinomial (el del problema original pero dando vuelta los resultados). Luego, como esos problemas complemento estaran en P tambien, en particular tambien estan en NP. Entonces, tambien estan en coNP.
+
+b. Si P = NP, entonces coNP = NP.
+
+Verdadero.
+
+Si N = NP, significa que todos los problemas en NP tienen un algoritmo que los resuelve en tiempo polinomial. Luego, su certificador es el mismo algoritmo que los resuelve. Al igual que en (a), se puede utilizar este algoritmo para resolver polinomialmente sus problemas complemento en coNP, con lo cual coNP tambien tienen un certificador polinomial, si mismos, y pertenecen a NP. Por otro lado, como todos los problemas NP son tales que su complemento pertenece a NP, tambien son coNP. luego, coNP = NP.
+
+c. Si P = NP, entonces todos los problemas computacionales pertenecen a P. 
+
+Falso.
+
+Los problemas cuya respuesta tenga size exponencial con respecto al size de entrada no pertenecen a P, ya que sus algoritmos no son polinomiales ni puede conseguirse un certificado polinomial. Ejemplo, enumerar todas las permutaciones posibles en un conjunto de naturales de largo k.
+
+d. Si coNP = NP, entonces SAT in coNP.
+
+Verdadero.
+
+SAT es un problema NP-Completo, con lo cual pertenece a NP. Luego, si coNP = NP, sat pertenece tambien a coNP.
+
+e. si coNP in NP, entonces NP = coNP.
+
+Verdadero.
+
+Para todo problema en NP, su complemento estara en coNP. Pero como coNP in NP, se da que el complemento esta tambien en NP. Luego, NP in coNP, y coNP = NP.

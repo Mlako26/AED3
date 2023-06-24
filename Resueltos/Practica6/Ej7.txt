@@ -1,0 +1,55 @@
+a. X es una instancia positiva de 2-PARTITION sii <r,R> es una instancia positiva de RECTANGLE PACKING.
+
+Por enunciado, dada la instancia X de 2-PARTITION, formamos r un rectangulo de base sum{X/2} y altura 2, y tomamos R el conjunto con rectangulos de altura 1 y base x para todo x in X.
+
+--->
+
+X es una instancia positiva de 2-PARTITION --->
+<r,R> es una instancia positiva de RECTANGLE PACKING.
+
+Si X es una instancia positiva de 2-PARTITION, significa que existe un subconjunto S de X tal que sum{S} = sum{X/2}.
+
+Luego, queremos ver si dentro del rectangulo r = (base,altura) = (sum{X/2}, 2) entran todos los rectangulos dentro de R = {(x,1) | x in X}. Ya que contamos con el subconjunto S, en particular de tomar todos los elementos del conjunto y colocar los rectangulos correspondientes en una fila en r, llegarian a llenar toda la base, dejando un rectangulo r' = (sum{X/2},1). 
+
+Nos falta ver que todos los demas rectangulos en R, los que tienen largo de base no perteneciente a S, entran en r'. Pero observar que X = S U S', donde S' es el complemento de S. Luego, sum{X} = sum{S U S'} = sum{S} + sum{S'} <->
+sum{S'} = sum{X} - sum{S} = sum{X} - sum{X/2} = sum{X/2}.
+
+Luego, como la suma de las bases de los rectangulos restantes tambien entran en el r' a lo largo, se cumple que <r,R> es una instancia positiva de RECTANGLE PACKING.
+
+<---
+
+<r,R> es una instancia positiva de RECTANGLE PACKING --->
+X es una instancia positiva de 2-PARTITION
+
+Si <r,R> es una instancia positiva de RECTANGLE PACKING, significa que todos los rectangulos en R entran en r. Luego, X es el conjunto de los largos de todas las bases de los rectangulos en R, y sum{X/2} = base de r. Con esto, quiero ver que existe un subconjunto S en X tal que sum{S} = sum{X/2}. 
+
+Dado que el area de r = 2 * sum{X/2} = sum{X}, y que los rectangulos que deben de entrar en r son sum{X}, igual que la anterior vez deben de posicionarse en dos filas, una arriba de la otra. Luego, tomando las bases de los rectangulos de la primera fila obtenemos el subconjunto S tal que sum{S} = sum{X/2}.
+
+b. X es una instancia positiva de 3-PARTIION si y solo si <r,R> es una instancia positiva de RECTANGLE PACKING.
+
+Dada una instancia X de 3-PARTITION, r = (n, t+3n), y R = {(1,n+x) | para todo x in X}.
+
+--->
+
+X es una instancia positiva de 3-PARTITION --->
+<r,R> es una instancia positiva de RECTANGLE PACKING.
+
+Si X es una instancia positiva de 3-PARTITION, entonces existe una particion de X en n triplas tal que sumen t. Con esto, quiero ver que todos los rectangulos en R entren en r.
+
+Tomemos triplas de rectangulos de R, igual que en la particion de X, y observemos que de apilarlos uno arriba del otro, su base sera 1, y su altura sera (n + x1) + (n + x2) + (n + x3) = 3n + t. Entonces, como tenemos n triplas en total, si apilamos las triplas y las posicionamos una al lado de la otra, nos queda exactamente el rectangulo r, con base n y altura 3n + t.
+
+<---
+
+<r,R> es una instancia positiva de RECTANGLE PACKING --->
+X es una instancia positiva de 3-PARTITION.
+
+Si <r,R> es una instancia positiva de RECTANGLE PACKING, entonces todos los rectangulos en R entran en r, y queremos utilizar esto para ver que X puede particionarse en n triplas que sumen t.
+
+Nuevamente, si observamos el area de r, vale que es (3n^2 + nt), y por otro lado la suma de las areas de los rectangulos en R es sum{n + X} = 3n^2 + nt.
+Luego, tienen que estar posicionados dentro de r sin rotar. Entonces, particionando el rectangulo r a lo alto en n particiones, tendremos todos subrectangulos ri con base 1 y altura t + 3n, donde entraran exactamente 3 rectangulos de R. Luego, tomamos las alturas de esos rectangulos - n a cada uno como valores de cada tripla.
+
+c. Quiero ver que las reducciones implicadas por los puntos anteriores son polinomiales en funcion de los sizes de entrada.
+
+Viendo la reduccion de a, observemos que la cantidad de rectangulos en R es igual a la cantidad de elementos en X. Ademas, el size de la base de r es linealmente dependiente a la suma de los elementos de X. Con lo cual, pasar de una instancia a la otra puede realizarse en tiempo polinomial.
+
+Viendo la reduccion de b, la altura de r es linealmente dependiente a la suma de los elementos en X, y la cantidad de rectangulos en R tambien es igual a la cantidad de elementos en X. Con lo cual, se puede pasar de una instancia a otra en tiempo polinomial con respecto al size de la entrada.
