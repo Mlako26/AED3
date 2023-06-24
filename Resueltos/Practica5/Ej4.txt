@@ -1,0 +1,7 @@
+Proponer un algoritmo lineal que dada una red N y un flujo de valor maximo, encuentre un corte de capacidad minima de N.
+
+Queremos encontrar un corte minimo en tiempo lineal conociendo un flujo de valor maximo. Sabemos que, cuando un flujo es maximo, entonces dentro de su red residual no se va a encontrar un camino de aumento, y el algoritmo de EK devuelve un corte minimo. 
+
+Entonces, nuestro algoritmo seria crear la red residual de este flujo, correr una iteracion de EK o FF, y obtener el corte minimo.
+
+Si utilizamos EK, hacer una sola iteracion del algoritmo implica hacer un bfs, con lo cual es O(n + m). Luego, construir la red residual de una red con su respectivo flujo es O(n + m) tambien. Entonces, el algoritmo es lineal.

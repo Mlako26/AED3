@@ -1,0 +1,38 @@
+Dada una secuencia de pares d, buscamos un digrafo D cuya secuencia digrafica sea d.
+
+a. Tenemos una secuencia con pares de grados de entrada y de salida, y queremos encontrar el grafo D que tenga esa secuencia digrafica. Podemos modelar el problema con la siguiente red:
+
+Para los nodos, tenemos un nodo s fuente y t sumidero, y luego dos nodos vi y vi' por cada par en la secuencia d.
+
+Para las aristas, sea (d-vi, d+vi) el par que representa al nodo vi, conectamos s a cada vi con capacidad d+vi, cada nodo vi con todos los nodos vi' con capacidad 1, y luego todos los nodos vi' a t con capacidad d-vi.
+
+b. Para la interpretacion de este modelo, vamos a tomar cada unidad de flujo como una arista a asignar a un nodo. Observemos que la suma de las aristas de entrada de todos los nodos es igual a la suma de las aristas de salida de todos los nodos para cualquier digrafo. Entonces, el maximo flujo que puede salir de s es la suma de todas las aristas de salida, que es la suma de todas las aristas de entrada.
+
+La restriccion de capacidad en s->vi es asignar exactamente d+vi aristas de salida al nodo vi. Luego, vi->vj', para todo j, tiene capacidad 1 ya que indica que el nodo vi->vj en el digrafo a crear. (no puede haber mas de una arista entre dos nodos en un digrafo). Por ultimo, cada nodo vi'->t tiene capacidad d-vi ya que es la cantidad de aristas de entrada que tiene. Si representamos el flujo como aristas a asignar, vi' no puede haber recibido mas de d-vi aristas.
+
+c.
+
+Vamos a demostrar esto demostrando que existe una forma de asignar U aristas si y solo si existe un flujo factible con valor U.
+
+-->
+
+Existe una forma de asignar U aristas -> existe un flujo factible con valor U.
+
+Como existe una solucion para asignar U aristas, por cada una que tiene de salida el vertice vi a vj, construimos el siguiente camino de flujo 1 de la siguiente forma:
+
+- Asignamos 1 unidad de flujo en s->vi
+- Asignamos 1 unidad de flujo en vi->vj'
+- Asignamos 1 unidad de flujo en vj'->t
+
+Siempre van a existir estas aristas mencionadas, ya que s conecta a todos los vi, todos los vi a todos los vj', y todos los vj' a t. Tambien, el flujo respeta las capacidades ya que como mucho se asigna uno de flujo entre vertices vi, vj', d+vi de flujo a vi, y se asigna d-vj entre vj' y t. Por ultimo, como la asignacion de aristas en la solucion es valida, habian U aristas y en consecuente pudimos asignar U de flujo.
+
+<--
+
+Existe una forma de asignar U aristas <- existe un flujo factible con valor U.
+
+Por cada unidad de flujo que sale de s hacia vi, y pasa por vj', podemos asignar una arista entre vi y vj en el grafo originial.
+
+Esto respeta las restricciones ya que como mucho se asignan d+vi aristas de salida al nodo vi, como mucho se asignan d-vj aristas de entrada al nodo vj. Por ultimo, se asignan U aristas ya que habia U de flujo que representaba a cada una de ellas.
+
+
+Entonces, como pudimos demostrar que asignar U aristas respetando las restricciones sucede si y solo si encontramos U de flujo en esta red, entonces la maxima cantidad de aristas posibles es la maxima cantidad de flujo posible.

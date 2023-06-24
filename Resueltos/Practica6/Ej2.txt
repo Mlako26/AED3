@@ -1,0 +1,49 @@
+Para cada uno de los siguientes problemas, proponer un certificado de size polinomial de cada instancia negativa que se pueda verificar en tiempo polinomial. En caso que el problema sea polinomial, el certificado debe ser distinto a la instancia. Describir claramente como funciona el verificador correspondiente.
+
+a. Prime.
+
+Dado un natural n, es n primo?
+
+Un verificador de instancia negativa es, dado un n, dice en tiempo polinomial si no es primo. Es decir, si es compuesto.
+
+Un certificador seria un numero x, donde si x divide a n entonces n no es primo. Como 1 < x < n, x es de size polinomial con respecto a la entrada.
+
+Luego, el verificador simplemente calcula n mod x == 0, lo cual tiene complejidad polinomial con respecto a la entrada n O(log(n)2).
+
+b. Sorted.
+
+Dada una secuencia A de naturales, esta A ordenada?
+
+Esto ya puede hacerse polinomialmente con un algoritmo de busqueda lineal, pero como debe de ser distinto, un certificado podria ser un indice i dentro de la secuencia, 1 <= i <= |A|. Entonces, el size de la entrada es polinomial con respecto al size de la secuencia.
+
+Luego, el verificador observa, sin pasarse de los limites de la secuencia, si A[i-1] > A[i] || A[i] > A[i+1]. Esto es constante. 
+
+c. Girth.
+
+Dado un grafo G y un valor k, todos los ciclos de G tienen k o menos vertices?
+
+Esto sera falso si existe un ciclo en G con mayor a k vertices. Luego, un certificado sera un conjunto de como mucho n puntos. El verificador toma G, k, y el conjunto, y verifica que el conjunto tenga mas de k elementos y que estos formen un ciclo recorriendo sus aristas. Tanto el size del conjunto como la complejidad de recorrer aristas en un grafo es polinomial con respecto a la entrada.
+
+d. 2-Coloring.
+
+Es G bipartito.
+
+Un grafo es bipartito si existe un particion en dos subgrafos, tal que ningun par de vertices en la misma particion comparten una arista. Luego, un grafo no es bipartito si existe un ciclo de size impar. 
+
+Entonces, un certificado puede ser un conjunto de puntos del grafo, con lo cual es polinomial con respecto al grafo de entrada. El verificador checkea si forma un ciclo, y si el size del conjunto de puntos es par. Luego, la complejidad es polinomial con respecto al size de entrada.
+
+e.
+
+k-clique.
+
+Dado un grafo G, G tiene un subgrafo completo de size mayor o igual a k?
+
+Es decir, un grafo G no tendra subgrafos completos de size mayor o igual a k si el subgrafo completo mas grande es de size < k.
+
+Luego, podemos tomar como certificado el maximo valor de clique c, el cual va a ser de size polinomial con respecto al grafo, y el verificador observara si c < k y si no existe un subgrafo completo en G de size c + 1 (si existiesen de mayor size, necesariamente un subgrafo de un sugrafo completo tambien es completo). Luego, calcular esto es tomar todos los diferentes subconjuntos de puntos de size t + 1 y ver si estan conectados todos con todos en (t+1)2 con matriz de adyacencias. Luego, como t+1 esta acotado por k, es O(n^k*k^2), lo cual para un k fijo es polinomial con respecto al size de entrada.
+
+f. Tautology
+
+Dada una formula proposicional (en forma normal disyuntiva), psi, es psi una tautologia?
+
+Un certificado posbile es una evaluacion de la formula. Esta tendra size lineal con respecto a la formula origial, con lo cual es polinomial, y el verificador simplemente revisa si la formula daba falso.

@@ -1,0 +1,28 @@
+Para todo F in N, construir una red con 4 vertices y 5 aristas en la que el metodo de Ford y Fulkerson necesite F iteraciones en paor caso para obtener el flujo de valor maximo (partiendo de un flujo inicial con valor 0).
+
+
+Dibujo:
+
+   (1,1)
+  /  ^  \
+ /   |   \ 
+s  (2,2)   t  
+ \   |   /
+  \  |  /
+   (1,1)
+
+Buscamos que el metodo de Ford y Fulkerson siempre necesiten F iteraciones de peor caso para obtener este flujo maximo. Pensemos primero que significa cada iteracion del algoritmo. Este utiliza la red residual de N para encontrar un camino entre s y t para generar un nuevo flujo cada vez mayor. Luego, si partiendo de 0 realiza F iteraciones, significa que en cada iteracion solo debe de sumar 1.
+
+Si queremos que el flujo maximo sea F, dividamos F en 2 y llamemos cada mitad M y M' (una de las dos puede ser impar si F es impar).
+
+Luego, tomemos el sigiuente grafo:
+
+   (M,0)
+  /  ^  \
+ /   |   \ 
+s  (1,0)   t  
+ \   |   /
+  \  |  /
+   (M',0)
+
+Si en cada paso, los caminos de aumento incluyen a la arista vertical, el delta sera siempre 1, con lo cual se aumentara 1 en cada iteracion y tomaran F iteraciones para encontrar el flujo maximo en peor caso.

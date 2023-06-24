@@ -1,0 +1,7 @@
+Recordemos que el algoritmo de Edmonds y Karp tiene dos complejidades: O(mF), donde F es el flujo maximo, y O(nm2)
+
+a. Se puede probar que EK realiza como mucho nm iteraciones, en las que realiza un bfs con complejidad O(n + m). Luego, la complejidad de EK queda acotada sin importar el valor de las aristas de la red por O(nm(n + m)) = O(n2m + nm2) = O(nm2) ya que, por la naturaleza de la red de flujo, m >= n.
+
+b. Si todas las aristas de N tienen capacidad a lo suma q << n, en el peor caso, el flujo maximo de la red sera O(nq). Luego, la complejidad de Ford-Fulkerson es O(mnq) que es mejor que O(nm2). Como Edmond Karps es una variante de FF, entones tambien tiene esta complejidad.
+
+c. Si el flujo maximo de N tiene un valor F << mn, entonces la complejidad de FF es O(mF) que es mucho menor que O(nm2). Luego, la complejidad de EK tambien es O(mF).
