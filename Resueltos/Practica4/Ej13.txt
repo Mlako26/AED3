@@ -1,0 +1,49 @@
+Decimos que una matriz cuadrada, simétrica y positiva M ∈ N2 es de Floyd-Warshall (FW) si
+existe un grafo G tal que M es el resultado de aplicar FW a G. Describir un algoritmo para
+decidir si una matriz M es FW. En caso afirmativo, el algoritmo debe retornar un grafo G con la
+mínima cantidad de aristas posibles tal que el resultado de FW sobre G sea M . En caso negativo,
+el algoritmo debe retornar alguna evidencia que pruebe que M no es FW.
+
+M es de FW si es el resultado de aplicar FW a G. Es decir, es el de distancias minimas.
+
+Observemos que para que M sea de FW, tiene que existir un grafo G tal que las distancias minimas entre todo par de vertices i, j sea igual a la posicion M[i][j] = M[j][i]. A su vez, no puede ser de FW la matriz si, para i, j, existe una arista z diferente tal que M[i][z] + M[z][j] < M[i][j], ya que debe de ser el camino minimo.
+
+Luego, para saber si M es de FW, basta con checkear que para todo par de vertices se cumple que no existe un tercero tal que se cumple esta condicion.
+
+for (int i = 0; i < |V| - 1; i++) {
+    for (int j = i+1; j < |V|; j++) {
+        for (z in V) {
+            if (z != i && z != j && M[i][j] > M[i][z] + M[z][j])
+                return (i, j, z);
+        }
+    }
+}
+return true;
+
+Luego, para devolver en el caso del false, podemos devolver i, j, z.
+
+Para devolver un grafo G con la cantidad minima de aristas tal que al aplicarle FW de M, observemos que esto significa que los caminos minimos entre los vertices de G deben de ser iguales a los de M. Luego, podemos saber que aristas z pertenecen al camino minimo de i y j si M[i][z] + M[z][j] = M[i][j]. Es decir, el camino minimo desde ambos vertices hasta z es el mismo que el camino minimo entre ambos vertices.
+
+Por ultimo, si calculamos todos los vertices que deberian de estar en el camino minimo entre i y j, tenemos que todo subcamino minimo es tambien camino minimo. Es decir, el camino entre dos nodos intermedios tambien debe de ser minimo en un camino minimo. Con esta idea, luego de encontrar todos los nodos de un camino minimo, podemos ordenarlos entre si con PD probando todas las combinaciones hasta que funcione? No estoy seguro. Esta parte no me queda del todo clara, es decir con un algoritmo de fuerza bruta se puede hacer pero creo que quizas hay una mejor forma de reconstruir el camino.
+
+Luego, podemos modificar el algoritmo anterior para ir generando la matriz en tiempo de ejecucion:
+
+G = ({1,...,n}, {});
+
+for (int i = 0; i < |V| - 1; i++) {
+    for (int j = i+1; j < |V|; j++) {
+        CM[1...n] = false
+        for (z in V) {
+            if (z != i && z != j) {
+                if (M[i][j] > M[i][z] + M[z][j]) {
+                    return (i, j, z);
+                } else if (M[i][j] == M[i][z] + M[z][j]) {
+                    CM[z] = 
+                }
+            }
+        }
+    }
+}
+return true;
+
+Supongo que luegod 

@@ -1,0 +1,22 @@
+Buscamos la arista v->w que pertenezca a la mayor cantidad de caminos minimos.
+
+Un algoritmo simple es el siguiente:
+- Calculamos las distancias de todos con todos los nodos con Floyd Warshall O(n3)
+- Por cada arista en E v->w, reviso todo par de vertices i, j tal que si D[i][v] + D[w][j] + c(v,w) = D[i]p[j] sumo uno a un contador.
+Luego, al final de revisar todos los pares de nodos obtendre la cantidad de caminos minimos a los cuales pertenece esta arista. O(n2*m)
+- Por ultimo, almaceno un maximo el cual actualizo cada vez que aparezca una arista mejor que la anterior.
+
+PSEUDO
+
+D = FW(G)
+
+max = 0
+maxArista = {}
+for ((v,w) in E)
+    contador = 0
+    for (i = 1...n-1)
+        for (j = i+1...n)
+            if (D[i][v] + D[w][j] + c(v,w) = D[i]p[j]) contador++
+    if (contador > max) 
+        max = contador
+        maxArista = (v,w)

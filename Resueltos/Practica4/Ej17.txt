@@ -1,0 +1,25 @@
+Entonces, dado un conjunto de valores w1,...,wk del que disponemos infinitas monedas, queremos buscar la minima cantidad de monedas para dar un vuelto v.
+
+Queremos buscar un algoritmo de camino minimo que resuelva este problema en complejidad O(vk).
+
+Podemos modelar el problema con el siguiente DAG:
+
+Existen los vertices 0, v, y los vertices intermedios son las diferentes combinaciones valores alcanzables con las monedas w1,...,wk. Por ejemplo de tener las monedas 2 y 5, y v = 8, entonces V(G) = {0, 2, 4, 5, 6, 7, 8}.
+
+-> w in V(G) <-> w = 0 o w = v o existe combinacion de monedas tal que sumen a w.
+
+Por otro lado, existira la arista u->w si y solo si desde el precio u podemos pasar al precio w con alguna moneda.
+
+Luego, con este DAG podemos realizar camino minimo entre 0 y v en tiempo lineal O(E + V)
+
+Entonces, cual es la complejidad de este algoritmo?
+
+Observemos que, mientras el problema es modelable con el DAG mencionado, podemos simplificar el algoritmo con la siguiente funcion recursiva y utilizar programacion dinamica:
+
+d(v) = inf si < 0 
+     = 0 si v = 0
+     = 1 + min{wi}(d(v-wi)) cc
+
+Es decir, si v = 0, entonces la cantidad de monedas a utilizar sera cero. En caso contrario, y todavia tengo vuelto que dar, tengo que utilizar una moneda de las que me quedan y restarla al vuelto. Notar que tambien esta el caso base inf, cuando el vuelto a dar es negativo. Esto podria darse por dos razones: cuando el problema no tiene solucion, o cuando restamos al vuelto de mas.
+
+Cual es la complejidad de hacer esta funcion con PD? Bueno, esta sera la cantidad de instancias por la complejidad de resolver cada una. Como el vuelto es v, como mucho tendremos una instancia por cada vuelto. Luego, resolver cada instancia nos cuesta O(k), ya que hacemos k llamados recursivos siempre. Entonces, nuestra complejidad final es O(vk).

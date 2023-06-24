@@ -1,0 +1,23 @@
+Dados dos vertices v y w de G, intervalo I(v,w) = todos los vertices que estan en un camino minimo entre v y w.
+Es decir, todos los vw-eficientes.
+
+Un cjto de vertices D es geodesico cuando la union detodos sus intervalos es el conjunto de vertices de su grafico V(G).
+
+En O(n3) quiero saber, dado un grafo conexo G y un conjunto D de vertices de G, si D es geodesico.
+
+Pensemos por un segundo que significa que D sea geodesico de G. Nos dan un conjunto de vertices D, los cuales lo van a ser si y solo si para todo par de vertices i, j en D, la union de los I(i,j) son todos los vertices de G. En particular, I(i,j) son todos los vertices que pertenecen a algun camino minimo entre i y j. Entonces, lo que nos pide que calculemos es si todos los vertices perteneciendo a los caminos minimos de los nodos en D son todo el grafo.
+
+Calcular con floyd warshall el camino minimo entre todo par de vertices es facil, y tambien calcular qué vertices pertenecen a los caminos minimos de ellos.
+
+Idea: Voy marcando todos los vertices que pertenezcan a los caminos minimos de los elementos del conjunto D y, si al final de todo marque a todos los vertices, significa que es geodesico.
+
+Algoritmo:
+
+- Calculo con Floyd-Warshall todas las distancias minimas entre los vertices.
+- Creo un vector de n posiciones con false, tal que la iesima posicion marca si el nodo i pertenece a algun intervalo de vertices en D. Es decir, sera true si pertenece a algun camino minimo entre dos vertices pertenecientes al conjunto.
+- Por cada par de nodos en D, recorro todos los demas nodos fijandome si pertenecen al camino minimo. Esto se puede ver si, dados i y j de D, y un nodo z cualquiera, M[i][z] + M[z][j] = M[i][j]. Si pertenecen a algun camino minimo, pongo su respectiva posicion en el vector como true.
+- Recorro el vector y de encontrar algun false entonces retorno false. Sino, true.
+
+Complejidad: FW es O(n3), crear el vector y recorrerlo es O(n). Luego, pensemos en el segundo paso: observemos que por todo par de nodos en D recorro todos los nodos una vez. Como en peor caso D son todos los nodos de G, V(G), tenemos que este paso es O(n3) tambien.
+
+----> O(n3)
