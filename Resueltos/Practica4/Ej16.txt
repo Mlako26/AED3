@@ -1,0 +1,28 @@
+D es conexo y sin ciclos dirigidos. v el unico que tiene grado de entrada 0.
+
+a. d(w) es el peso del camino minimo de v a w.
+
+La idea es la siguiente. Para llegar a de v a w, al menos se tiene que pasar por una arista vecina de w. Es decir, como v es un nodo diferente a w (excepto en el caso trivial de 0 cuando v = w), el camino minimo tendra siempre al menos una arista la cual es adyacente a w. Luego, la funcion sera la siguiente:
+
+- si v = w, como el grado de entrada de v es cero, no se puede dar que exista un camino de peso negativo que pase por otros nodos ademas de v y que vuelva a llegar a v. Con lo cual, necesariamente es un caso base donde d(v) = 0.
+- si v != w, entonces d(w) = min(z in din(w)) d(z) + c(z,w). Es decir, el peso del camino minimo hacia a w es el peso del camino minimo hacia alguno de sus vecinos y luego la arista de su vecino hacia w.
+
+Entonces,
+
+d(w) = 0 si w = v  
+     = min(z in din(w)) d(z) + c(z,w) cc
+
+b.
+
+mem[1...n] = inf
+mem[1] = 0
+
+d(w):
+    if (mem[w] != inf) return mem[w]
+    best = inf
+    for (u in din(w)):
+        best = min(best, d(u)+c(u,w))
+    mem[w] = best
+    return mem[w]
+
+Complejidad: Como es pd, solo hay n instancias a calcular. Ahora, cuanto cuesta calcular cada instancia? Si observamos, en cada for que hay se busca por los vecinos de mi nodo actual. Entonces, en el peor de los casos se recorren todas las aristas una vez. O(n + m).
