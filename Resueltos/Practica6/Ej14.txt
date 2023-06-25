@@ -1,0 +1,10 @@
+a. Si II in P entonces T in P.
+
+nop.
+
+b. Si T in P entonces II in P.
+
+Intuitivamente, si T in P y T es mas dificil que II entonces II tambien debe de ser polinomial.
+
+c.
+
