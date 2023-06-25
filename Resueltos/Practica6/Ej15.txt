@@ -1,0 +1,11 @@
+a. P = NP entonces todo problema NPC es polinomial.
+
+Verdadero. Esto es porque si todo problema perteneciente a NP tambien pertenece a P, existe un algoritmo polinomial que lo resuelve. Luego, como los problemas NPC son en particular NP, tambien son polinomiales.
+
+b. Si P = NP, entonces todo problema NP-Hard es polinomial.
+
+Falso. Esto es porque, a diferencia de (a), los algoritmos NP-Hard no pertenecen necesariamente a NP.
+
+c. Si las clases NPC y coNPC son disjuntas entonces P != NP.
+
+Un problema pertenece a NPC si pertenecen a NP y NP-HARD, y otro pertenece a coNPC si su complemento pertenece a NPC. Por el ejercicio 12, si N = NP, entonces NPC = coNP. Por contrareciproco, si NPC != coNP, entonces N != NP. Ahora, como coNPC es disjunto a NPC, hay problemas en coNP que no esten en NP, y en consecuente NPC != coNP.

@@ -1,0 +1,31 @@
+Sabiendo que Clique en NP completo, demostrar que SUBGRAPH ISOMORPHISM es NP-Completo.
+
+SUBGIS = dados dos grafos G y H, es H isomorfo a un subgrafo
+inducido de G?
+
+CLIQUE = dado un grafo G y un natural k, G tiene un completo de tamaño mayor o igual a k?
+
+Quiero probar que SUBGIS es NPC. Este lo sera si es NP y NP-HARD.
+
+Por un lado, observemos que SUBGIS pertenece a NP, ya que podemos utilizar como certificado un mapa f:V(H) -> V(G). Luego, este mapeo sera de size polinomial con respecto a los sizes de H y G. Luego, el verificador debera de ver que para toda arista ij en H exista la arista f(i)f(j) en G. Esto puede hacerse en tiempo polinomial. Luego, pertenece a NP.
+
+Por otro lado, queremos ver que pertenece a NP-HARD. Esto puede probarse viendo que CLIQUE, que pertenece a NP-HARD por ser NPC, puede reducirse polinomialmente a SUBGIS. Es decir, si CLIQUE <=p SUBGIS entonces, SUBGIS es NPC. Esto sucede si existe una funcion polinomial f que tome entradas de CLIQUE y las transforme en una de SUBGIS en tiempo polinomial, tal que CLIQUE(I) = SUBGIS(f(I)).
+
+Una entrada de CLIQUE es un grafo G y un grafo k, los cuales perteneceran al problema si existe un subgrafo de size mayor o igual a k completo. Luego, podemos tomar como funcion polinomial f la transformacion que toma G y k, y crea como instancia de SUBGIS G' = G, H = grafo completo de size k. Entonces, naturalmente, en G existira un subgrafo completo de size mayor o igual a k si y solo si un grafo completo H de size k es isomorfo a algun subgrafo de g. Notar que, de existir un subgrafo completo de G con size mayor a k, en particular existe un subgrafo de ese subgrafo de size k, con lo cual podemos restringirnos a buscar subgrafos de size k.
+
+Vamos a probar que, con esta transformacion polinomial (observar que G permanece igual y H es simplemente un grafo completo polinomial con respecto a k), CLIQUE(I) = SUBGIS(f(I)).
+
+
+--->
+
+I in CLIQUE ---> f(I) in SUBGIS
+
+Si I in CLIQUE, entonces en G existe un subgrafo completo de size mayor o igual a k. Luego, en particular tiene un subgrafo completo de size exactamente k. Entonces, con la transformacion f, se da que H es un grafo completo de size k y queremos ver si en G existe un subgrafo isomorfo a H, es decir, completo de size k. Como este existe, entonces tambien vale que f(I) in SUBGIS.
+
+<---
+
+f(I) in SUBGIS ---> I in CLIQUE
+
+Si f(I) in SUBGIS, entonces H, un grafo completo de size k, es isomorfo a algun subgrafo de G. Luego, existe en G un subgrafo completo de size k, con lo cual I in CLIQUE.
+
+Luego, como CLIQUE <=p SUBGIS, SUBGIS in NP-HARD, y en consecuente en NPC.

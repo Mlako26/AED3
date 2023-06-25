@@ -1,0 +1,11 @@
+Sabiendo que HAMPATH es NPC, demostrar que ELEMENTARY SHORTEST PATH es NPC.
+
+HAMPATH: dado un digrafo G y dos vértices s y t, G tiene un camino de s a t que pase por todos los vértices de G?
+
+ELEMENTARY SP: dado un digrafo pesado G, dos vértices s y t, y un natural k, G tiene un camino de s a t de peso menor o igual a k?
+
+Por ejercicio 1, ELEMENTARY SP tiene un certificado y verificador polinomial, con lo cual pertenece a NP. Luego, para ver si pertenece a NP-HARD, veamos que HAMPATH puede reducirse polinomialmente a ELEMENTARY SP.
+
+Una entrada de HAMPATH es el digrafo G y dos vertices s y t, y buscamos una funcion polinomial f que tome estas instancias y las transforme en un digrafo G', s', t' y k, tal que HAMPATH(I) = ELEMENTARY SP(f(I)).
+
+Luego, podemos tomar f la funcion que tome G, s y t
