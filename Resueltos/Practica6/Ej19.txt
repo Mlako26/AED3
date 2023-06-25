@@ -1,0 +1,23 @@
+El problema DOUBLE-SAT consiste en determinar si una formula proposicional psi tiene al menos dos valuaciones que la satisfacen. Demostrar que DOUBLE-SAT es NPC.
+
+Para demostrar esto, tenemos que ver que DOUBLE-SAT pertenece a NP y a NP-HARD.
+
+Por un lado, ver que pertenece a NP es facil, ya que podemos tomar como certificado dos valuaciones diferentes de psi, y luego verificar si hacen verdadera ambas a psi. El size del certificado es polinomial con respecto al size de psi, y tambien aplicar ambas valuaciones puede realizarse en O(n), donde n es la cantidad de proposiciones.
+
+Luego, queremos ver que este problema pertenece a NP-HARD. Hagamos esto probando que SAT es reducible polinomialmente a DOUBLE-SAT. Esto es que existe una funcion polinomial f que toma instancias de SAT y las transforma en instancias de DOUBLE-SAT tal que SAT(I) = DOUBLE-SAT(f(I)).
+
+Ambas SAT y DOUBLE-SAT tienen de entrada una formula proposicional, y buscamos que si la formula de SAT tiene al menos una evaluacion que la satisface, la de DOUBLE-SAT tenga al menos dos. Entonces, podemos tomar f tal que toma la formula proposicional psi de SAT, y arma la formula (x o y) Y psi, donde x e y son variables que no aparecen en psi. Vamos a probar que I in SAT <---> f(I) in DOUBLE-SAT.
+
+--->
+
+I in SAT ---> f(I) in DOUBLE-SAT
+
+Si I in SAT, entonces psi es satisfacible por al menos una evaluacion. Luego, observando f(I), podemos utilizar la misma evaluacion de psi que la hacia verdadera + evaluar x positiva o y positiva. Luego, esto hace que (x o y) Y psi sea verdadera por ambas evaluaciones, con lo cual tiene por lo menos dos evaluaciones que la hacen verdadera. Entonces, f(I) in DOUBLE-SAT.
+
+<---
+
+f(I) in DOUBLE-SAT ---> I in SAT
+
+Si f(I) in DOUBLE-SAT, entonces la formula f(I) es satisfacible por al menos dos evaluaciones. Ademas, por como funciona f, la formula f(I) comienza por la clausula con dos variables (x o y) que no aparecen en el resto de la formula, seguidas de un Y psi, con psi una subformula. Luego, como existian 2 evaluaciones que hacian verdadera la formula entera, en particular se hacia verdadera psi, y entonces existe una valuacion que la hace verdadera. Entonces, I in SAT.
+
+Luego, como SAT <=p DOUBLE-SAT, por transitividad DOUBLE-SAT pertenece a NP-HARD, y entonces a NPC.
