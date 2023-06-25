@@ -8,4 +8,18 @@ Por ejercicio 1, ELEMENTARY SP tiene un certificado y verificador polinomial, co
 
 Una entrada de HAMPATH es el digrafo G y dos vertices s y t, y buscamos una funcion polinomial f que tome estas instancias y las transforme en un digrafo G', s', t' y k, tal que HAMPATH(I) = ELEMENTARY SP(f(I)).
 
-Luego, podemos tomar f la funcion que tome G, s y t
+Luego, podemos tomar f la funcion que tome G, s y t, y arme el digrafo pesado G', igual a G pero con el peso de las aristas = -1, s' = s, t' = t, y k = -|V(G)|-1 . Luego, intuitivamente, existira un camino entre s y t que pase por todos los nodos de G si y solo si existe un camino en G' con peso -|V(G)|-1, ya que por cada arista por la que se recorre se resta -1 al peso, y la maxima cantidad de aristas en un camino es n-1. Probemos entonces que I in HAMPATH <---> f(I) in ELEMENTARY SP.
+
+--->
+
+I in HAMPATH ---> f(I) in ELEMENTARY SP
+
+Si I in HAMPATH, entonces se da que existe un camino entre s y t en G que pase por todos los nodos. Luego, como un camino no repite nodos, y en consecuente aristas, este camino pasa por |V(G)| - 1 aristas. Entonces, como G' es el mismo grafo que G pero con todas las aristas con peso -1, el peso del mismo camino es -|V(G)|-1 = k, y como va desde s a t, vale que f(I) in ELEMENTARY SP.
+
+<---
+
+f(I) in ELEMENTARY SP ---> I in HAMPATH
+
+Si f(I) in ELEMENTARY SP, entonces existe un camino entre s y t en G' con peso menor o igual a k = -|V(G)|-1. Luego, como todas las aristas tienen peso -1, y un camino no repite vertices, los unicos caminos que satisfacen esto son los que pasan por todos los nodos en G'. Luego, como existe en G' este camino entre s y t que pasa por todos los nodos, tambien existe en G por ser el mismo grafo. Entonces, I in HAMPTH.
+
+Entonces, como HAMPATH <=p ELEMENTARY SP, y HAMPATH in NP-HARD, ELEMENTARY SP in NP-HARD, y en consecuente en NPC.
