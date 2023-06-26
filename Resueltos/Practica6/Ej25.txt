@@ -1,0 +1,10 @@
+Proponer un algoritmo de backtracking para CLIQUE que incluya una poda por optimalidad y este basado en la siguiente estrategia:
+
+- Las soluciones validas son las cliques maximales de G.
+- Las soluciones parciales son pares (K,V) donde K es un completo de G y V in V(G) \ K es el conjunto de vertices adyacentes a todos los vertices de K.
+
+Nuestro algoritmo de backtracking tiene que ir formando el subgrafo completo de a vertice a la vez hasta que encuentre uno de size k. Sino lo encuentra, devolvera false. Luego, podemos definir la siguiente funcion de backtracking f,
+
+f(K,V,k) = {K,V} si |K| = k
+         = indefinido si |K| > k
+         = 
