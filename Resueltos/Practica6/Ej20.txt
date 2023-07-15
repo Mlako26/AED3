@@ -1,0 +1,21 @@
+BICLIQUE consiste en determinar si G tiene una biclique de cardinal mayor o igual a k.
+
+a. Demostrar que un grafo G tiene una clique de size k si y solo si G' + G' tiene una biclique de size 2k, siendo G' el grafo complemento de G.
+
+--->
+
+G tiene una clique de size k ---> G' + G' tiene una biclique de size 2k
+
+Si G tiene una clique de size k, entonces existe un conjunto de vertices en G que induce un subgrafo completo de G. Luego, G' es el mismo grafo que G solo que e in E(G') <-> !(e in E(G)). Ademas, G' + G' es el grafo donde se tienen los vertices de G repetidos dos veces,vi y vi' respectivamente, con las aristas entre ellos, pero ademas vi->vj', para todo i y j. 
+
+Luego, todas las aristas del clique en G no estaran en G', y los nodos del clique formaran un subgrafo con k vertices y ninguna arista. Luego, todos estos vertices vi se conectaran con todos los vertices vj' en G' + G'. Tomando todos los vi y vj' que forman parte de estos subgrafos vacios, definimos la biclique en G' + G'.
+
+<---
+
+Si G' + G' tiene una biclique, entonces existen dos conjuntos de nodos P1 y P2 que pertenecen respectivamente a cada particion de la biclique, y tanto P1 y P2 forman subgrafos con vertices sin aristas. Luego, como G' + G' es el grafo formado uniendo ambos grafos repetidos, P1 y P2 pueden estar repetidos existen dos bicliques en, una en cada G', o puede darse que P1 en G1' y P2 en G2'. Si la biclique esta directamente en G', entonces al invertir las aristas en G se forman dos subgrafos completos, donde al menos uno de ellos tiene size k. Si la biclique esta en G1' y G2', en particular como G1' = G2', P1 y P2 pertenecen a G', pero no comparten ninguna arista. Luego, al invertir todas las aristas en G, tanto P1 como P2 forman subgrafos completos, y al menos uno de ellos debe de tener size k. Entonces, si o si G tiene una clique de size k.
+
+b. Demostrar que BICLIQUE es NPC sabiendo que CLIQUE es NPC.
+
+Tomemos dos conjuntos de nodos, no mas grandes que |G|, como certificado, y luego podemos utilizar como verificador, dado el grafo G y ambos conjuntos, si forman ambas particiones de una biclique en G. Tanto los conjuntos como el algoritmo son polinomiales. Luego, BICLIQUE pertenece a NP.
+
+Para ver que BICLIQUE pertenece a NP-HARD, podemos intentar reducir polinomialmente CLIQUE a BICLIQUE. Esto es facil, ya que podemos tomar el grafo G de una instancia de CLIQUE, y luego formar G' + G' en tiempo polinomial como instancia de BICLIQUE. Luego, por (a), vale que I in CLIQUE si y solo si f(I) in BICLIQUE. Entonces, BICLIQUE in NP-HARD, y en consecuente NPC.

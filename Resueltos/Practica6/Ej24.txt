@@ -1,0 +1,16 @@
+Proponer un algoritmo de backtracking para SAT con poda por factibilidad y este basado en la siguiente estrategia:
+
+- Las variables de phi tienen un orden prefijado v1...vn.
+- Las soluciones validas son las valuaciones que satisfacen phi.
+- Las soluciones parciales son las valuaciones que asignan un prefijo v1...vi de las variables.
+- Proponer una poda por factibilidad.
+
+Necesitamos generar un algoritmo de backtracking para solucionar SAT, donde las respuestas parciales se van formando de la primera variable hacia la ultima. Propongo la siguiente funcion f de backtracking, donde V es la secuencia de valuaciones x1...xn.
+
+f(V) = phi(V) si i > n y |V| = n
+     = indefinido   si |V| > n
+     = f(V+{T}) || f(V+{F}) cc
+
+De ser V una evaluacion invalida (tiene mas elementos que la cantidad de predicados), entonces la funcion se indefine. Luego, siempre y cuando queden predicados por evaluar, se toman dos ramas en el arbol de eleccion, donde se le asigna a la proxima variable true o false. Luego, al tener las n evaluaciones, se evalua phi. De haber una evaluacion que haga verdadera la formula, entonces uno de los || se va cumplir y f(V) dara true. Para solucionar el problema, el llamado es f({}).
+
+Por otro lado, una posible poda es, al momento de asignar una evaluacion a cada una de las variables, ir evaluando de a poco la formula, y si ya va a dar false sin importar las evaluaciones siguientes podar la rama. Esto puede hacerse manteniendo, para cada variable, una referencia a todas las clausulas a las que pertenece, y aplicandoles la valuacion otorgada. En caso de cumplirse la clausula, entonces la pintamos como finalizada. En caso de no cumplirse todavia, marcar que esta variable no la va a satisfacer. Si no se cumple, y ademas soy la ultima variable que la puede satisfacer, entonces esta clausula nunca se va a satisfacer, y en consecuente puedo podar esta rama de backtracking.
