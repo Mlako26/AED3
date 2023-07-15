@@ -1,0 +1,110 @@
+1.
+Sean P los distintos puntos de la ciudad.
+Sean C los caminos entre los puntos.
+d(u,v) representa la longitud en kilometros entre dos puntos.
+El mapa del tren se modela con un grafo  (P',C'), donde P' esta incluido en P y C' son caminos que unen puntos de P' usando vias del tren.
+
+a. Determinar en este modelo un camino entre A y B que minimice el tiempo. Considerar los tiempos de espera al subirse al tren.
+
+Podemos tomar como modelo al problema el siguiente grafo:
+
+- Tenemos una lista de puntos P, y aristas de dos tipos: caminos de bicicleta C y de tren C'.
+- Con un primer acercamiento, generamos el grafo G que tenga P vertices, y unidos por los caminos C y C' con diferentes pesos:
+
+Si el camino es en bicicleta, la arista C que une u y v tendra peso longitud / velocidad = d(u,v) / 15km/h.
+
+Si el camino es en tren, la arista C que une u y v tendra peso longitud / velocidad = d(u,v) / 60km/h.
+
+Luego, los pesos de las aristas representaran el tiempo que se tarda en ir desde el punto u hasta el v.
+
+Lo unico que falta modelar son los 10 minutos, o 1/6 de hora, de espera para subirse al tren. Para esto, necesitamos que el modelo muestre tambien el estado de ser el primer camino de tren o no. Vamos a utilizar dos grafos entonces, uno donde la ultima calle recorrida fue en bici, y otro donde el ultimo recorrido fue en tren.
+
+G1:
+
+- Vertices = P.
+- Aristas: Se puede ir de dos puntos en este grafo a traves de las aristas C. Luego, por cada recorrido en tren de los puntos u y v, generaremos una arista que pase desde u hacia v' en G2, con costo de antes + 1/6 de hora.
+
+G2:
+
+- Vertices = P (P' tambien funciona).
+- Aristas: Aca solo vamos a incluir las aristas C'. Por cada camino en C', vamos a agregar dos aristas. Una que una los puntos u' y v', con el peso de viajar en tren, que represente no bajarse del tren. Otra de u' a v, con el mismo peso, que represente luego bajarse del tren en el G1.
+
+Luego, si hacemos el camino minimo en este modelo entre los puntos A y B, vamos a encontrar el camino entre ambos puntos que minimice el tiempo en llegar.
+
+La complejidad de este algoritmo es generar el modelo y calcular el CM.
+
+Nodos: P + P = O(P)
+Aristas: C + C' + C' + C' = O(C + C').
+
+Utilizando el algoritmo de Dijkstra naive, basado en un vector, podemos conseguir la complejiad de O(nodos^2) = O(P^2).
+
+b. Vamos a probar que existe un camino en la ciudad entre los puntos A y B que tarde tiempo t si y solo si existe un camino entre A y B en el modelo con costo t.
+
+--->
+
+De tener un camino que pase por los puntos Ap1...pkB, podemos armar el camino de la siguiente forma:
+
+Por cada par consecutivo de puntos u,v, tomamos la arista que pasa por los nodos que los representan:
+
+- Si Juli fue en bici, la arista u->v.
+- Si Juli se subio al tren, la arista u->v'.
+- Si juli se quedo en el tren desde antes, la arista u'->v'.
+- Si Juli se bajo del tren despues de llegar a v, la arista u'->v.
+
+Este camino es valido? Si, porque estas aristas siempre existen (las aristas de C son u->v, las de C' son u->v', u'->v', u'->v), y el camino va de A a B. Nunca se va a dar que pase a estar en aristas tren sin haber pasado por una de subida y de tren a bicicleta sin bajarme antes.
+
+El camino tiene peso t? Si, porque de ir en bicicleta se suma el tiempo que toma en ir desde u hasta v en bici, de ir en tren el tiempo pero en tren, y de subirse al tren se suma el 1/6 de hora.
+
+<---
+
+Puedo definir el camino de la siguiente forma: por cada arista e1...en por las que pasa el camino, tomo el camino c1...cn que pasa por los mismo puntos que en el grafo. Luego, por cada ei,
+
+De ser ei entre u->v, Juli va en bici.
+De ser ei entre u->v', Juli se sube al tren.
+De ser ei entre u'->v', Juli va en tren sin subirse.
+De ser ei entre u'->v, Juli va en tren y se baja al llegar a v.
+
+Es un camino valido? Si, ya que todas las calles van a existir (ei une dos puntos u/u' y v/v' que existian en la ciudad a traves de un camino en bici o en tren de existir). Tambien recorro puntos en orden, ya que el modelo fue construido en base a la ciudad y definimos un camino valido en el mismo. Por otro lado, respeta los tiempos de subirse al tren ya que de hacerlo el camino pasa por una arista u->v'.
+Toma tiempo t? Si, ya que la arista tenia como peso el tiempo que tomaba recorrer entre dos puntos ya sea en tren o en bici, y el camino refleja esto.
+
+Como sabemos que todo camino en la ciudad puede representarse en el grafo y viceversa, en particular el camino minimo en el modelo representa la mejor forma de viajar entre A y B en la realidad.
+
+
+
+2.
+Sea S un SRD formado por x1...xn y eij: xi - xj <= cij. Sea m = min{cij | eij in E}.
+
+Demostrar que S admite una solucion si y solo si S admite una solucion donde el valor asignado a xi pertenece al intervalo [0, |m|(n-1)] para todo 1 <= i <= n.
+
+Sabemos, por un lado, que si s tendra solucion, entonces no tiene ciclos negativos, y por ende una solucion es tomar xi = d(v0,vi).
+
+--->
+
+S admite una solucion ---> S admite una solucion donde el valor asignado a xi pertenece al intervalo [0, |m|(n-1)] para todo 1 <= i <= n.
+
+Si S admite una solucion, entonces sabemos que con el algoritmo de BF podemos calcular una posible solucion calculando los caminos minimos entre v0 y cada vi. Luego, una posible solucion es d(v0, vi) = xi, 1 <= i <= n.
+
+Pero pensemos, 
+
+d(v0,vi) - d(v0,vj) <= m * m * m *...
+
+3.
+
+RESUELTO EN CLASE.
+
+4.
+
+IEI: Dado un grafo G y un natural k>0, retorna si si y solo si es imposible particionar G en conjuntos independientes de vertices tales que todos tengan size por lo menos k. Es decir, conjuntos de vertices de sizes >=k que no compartan aristas.
+
+a. IEI pertenece a coNP.
+
+IEI pertenece a coNP si NO-IEI pertenece a NP. NO-IEI, su problema complementario, devuelve SI si y solo si existe una particion de G tal que cada particion no tenga aristas y su size sea mayor o igual a k.
+
+Notemos que podemos utilizar como certificado una posible particion de G, la cual es una lista de secuencias de vertices que estan en la misma particion. Este certificado es O(n), con lo cual es de size polinomial. Verificar este certificado es ver las aristas de cada uno de los vertices y verificar que no las comparta con otro de su misma particion. Ver esto es O(m), ya que se recorren dos veces cada arista. Como tenemos un certificado y verificador polinomial, NO-IEI pertenece a NP y IEI pertenece a coNP.
+
+b. IEI pertenece a coNPC.
+
+IEI pertenecera a coNPC si y solo si NO-IEI pertenece a NPC, y este lo hara si ademas de estar en NP esta en NP-HARD. Hagamos esto reduciendo polinomialmente 3-Coloreo a NO-IEI.
+
+Para ello, primero buscamos una funcion polinomial f que transforme instancias de 3-COLOREO a NO-IEI tal que 3-COLOREO(I) = NO-IEI(f(I)). Una instancia del primero es un grafo solo, y del segundo es un grafo y un k. Recordemos, ademas, que 3-COLOREO devuelve si cuando el grafo G de la instancia I puede ser particionado en 3 conjuntos independientes de vertices de cualquier size (puede ser 0).
+

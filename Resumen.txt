@@ -1,0 +1,38 @@
+.:Bellman - Ford:.
+Es un algoritmo de programación dinámica que resuelve lo mismo que Dijkstra pero aceptando aristas de peso negativo.
+En la iteración k, se encuentran los caminos mínimos desde s con, a lo sumo, k arcos.
+
+BELLMAN-FORD(G,s) :
+    for v in V :
+        v.d = inf
+        v.pred = none
+    s.d = 0
+    for i = 1 to n-1 :
+        for (u,v) in E :
+            RELAX(u,v)
+    for (u,v) in E :
+        if v.d < u.d + w(u,v) :
+            return false
+    return True, v
+
+RELAX(u,v) :
+    if v.d > u.d + w(u,v) :
+        v.d = u.d + w(u,v)
+        v.pred = u
+
+El algoritmo relaja todas las aristas a la vez, n-1 veces.
+Por último, relajo una última vez, y si todavía se pueden achicar las distancias significa que hay un ciclo negativo.
+
+COMPLEJIDAD: O(VE)
+CORRECTITUD: Para demostrar correctitud, demostremos que, de no haber ciclos negativos, Bellman - Ford determina luego de k iteraciones los caminos mínimos de a los sumo k arcos desde s hacia todos los demás vértices.
+
+Caso Base: Antes de ingresar, k = 0, con lo cual no se considera ningún arco. pi[u] = inf para todo vertice menos s, y pi[s] = 0.
+
+Paso Inductivo: Consideremos la iteración k >= 1.
+HI: Al terminar la iteracion k', k' < k, el algoritmo determina en pik las longitudes de los caminos minimos desde s hacia todo vértice considerando k' arcos.
+
+Sea u tal que el CM desde s a u con menor cantidad de arcos contiene k arcos, y sea P uno de estos caminos. Sea w el predecesor de u en P. Como todo subcamino de un CM es un CM, y por HI, Psw es un CM entre s y w con k' arcos.
+
+En la iteración k, pi[u] se actualiza correctamente cuando se relaja la arista (w,u), y no se vuelve a actualizar porque implicaría que P no es un CM. Luego, el algoritmo calculó efectivamente su CM luego de k iteraciones.
+
+En particular, luego de n-1 iteraciones se actualizaron correctamente los CM considerando n-1 arcos.
